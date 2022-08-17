@@ -16,11 +16,11 @@ class DetailViewController: UIViewController {
     }
     
     //срабатывает после загрузки главного экрана
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .red
-        print(#function)
-    }
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        view.backgroundColor = .blue
+//        print(#function)
+//    }
     
     //срабатывает каждый раз при попадании на экран
     override func viewWillAppear(_ animated: Bool) {

@@ -36,7 +36,7 @@ class TabBarController: UITabBarController {
         
         //Кастомизируем таббар
         UITabBar.appearance().tintColor = .red
-        UITabBar.appearance().backgroundColor = .brown
+        UITabBar.appearance().backgroundColor = .white
     }
 }
 
