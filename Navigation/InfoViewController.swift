@@ -1,13 +1,13 @@
 //
-//  SecondTabVC.swift
+//  InfoViewController.swift
 //  Navigation
 //
-//  Created by Ольга Бойко on 16.08.2022.
+//  Created by Ольга Бойко on 22.08.2022.
 //
 
 import UIKit
 
-class SecondTabVC: UIViewController {
+class InfoViewController : UIViewController {
     
     let button: UIButton = {
         let button = UIButton()
@@ -25,21 +25,19 @@ class SecondTabVC: UIViewController {
         view.backgroundColor = .orange
         view.addSubview(button)
     }
-    
+        
     @objc func taptap() {
-    
+        
     let alertMessage = UIAlertController(title: "Hello", message: "It's me", preferredStyle: .alert)
-    
     let answer = UIAlertAction(title: "Hello Adele", style: .default, handler: { _ in
-            print("Hello Adele")
+                print("Hello Adele")
     })
     let answer1 = UIAlertAction(title: "Bye Adele", style: .default, handler: { _ in
-            print("Bye Adele")
+                print("Bye Adele")
     })
-        
     alertMessage.addAction(answer)
     alertMessage.addAction(answer1)
     self.present(alertMessage, animated: true)
-}
+    }
 }
 

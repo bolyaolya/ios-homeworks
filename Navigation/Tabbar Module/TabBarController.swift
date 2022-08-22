@@ -20,8 +20,8 @@ class TabBarController: UITabBarController {
     
     private func setupUI() {
         //Объявляем стартовый экран и создаем навигационные контроллеры
-        firstTabNavigationController = UINavigationController.init(rootViewController: FirstTabVC())
-        secondTabNavigationController = UINavigationController.init(rootViewController: SecondTabVC())
+        firstTabNavigationController = UINavigationController.init(rootViewController: FeedViewController())
+        secondTabNavigationController = UINavigationController.init(rootViewController: ProfileViewController())
         
         //Добавляем навигационные контроллеры в контейнер таббара
         self.viewControllers = [firstTabNavigationController, secondTabNavigationController]

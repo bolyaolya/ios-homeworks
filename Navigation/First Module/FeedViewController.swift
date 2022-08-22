@@ -8,7 +8,7 @@
 import UIKit
 
 
-class FirstTabVC: UIViewController {
+class FeedViewController: UIViewController {
     
     struct Post {
         let title: String

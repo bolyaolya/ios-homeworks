@@ -9,20 +9,18 @@ import UIKit
 
 class PostViewController : UIViewController {
     
-    let fromFirstTab = FirstTabVC()
+    let fromFirstTab = FeedViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let button = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(infoView))
+        navigationItem.rightBarButtonItem = button
         self.title = fromFirstTab.postTitle.title
         self.view.backgroundColor = .lightGray
     }
     
-    let button = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(InfoView))
-    
-    @objc func InfoView() {
-        let infoView = SecondTabVC()
-        navigationController?.present(infoView, animated: true)
+    @objc func infoView() {
+        let infoViewController = InfoViewController()
+        navigationController?.present(infoViewController, animated: true)
     }
 }
-
-
