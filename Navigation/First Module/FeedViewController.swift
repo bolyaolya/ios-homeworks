@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 class FeedViewController: UIViewController {
     
     struct Post {
@@ -42,7 +41,6 @@ class FeedViewController: UIViewController {
             button.centerYAnchor.constraint(equalTo: view.centerYAnchor),
         ])
     }
-    
     
     
     @objc func tap() {

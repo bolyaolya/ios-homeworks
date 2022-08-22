@@ -40,4 +40,3 @@ class InfoViewController : UIViewController {
     self.present(alertMessage, animated: true)
     }
 }
-
