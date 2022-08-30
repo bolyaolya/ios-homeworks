@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		011BEB2928ABCF2E006EAA26 /* SecondTabVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011BEB2828ABCF2E006EAA26 /* SecondTabVC.swift */; };
+		011BEB2928ABCF2E006EAA26 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011BEB2828ABCF2E006EAA26 /* ProfileViewController.swift */; };
+		012DDDCF28B3E18900040DD5 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012DDDCE28B3E18900040DD5 /* InfoViewController.swift */; };
 		013FA36B28AD263100A1FB54 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013FA36A28AD263100A1FB54 /* PostViewController.swift */; };
 		01C137CE28A926DC003B5405 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C137CD28A926DC003B5405 /* AppDelegate.swift */; };
 		01C137D028A926DC003B5405 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C137CF28A926DC003B5405 /* SceneDelegate.swift */; };
@@ -16,12 +17,13 @@
 		01C137DA28A926E0003B5405 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01C137D828A926E0003B5405 /* LaunchScreen.storyboard */; };
 		01C137E228A928DC003B5405 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 01C137E128A928DC003B5405 /* .gitignore */; };
 		01EE9F2B28AAD36E00D96A3D /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EE9F2A28AAD36E00D96A3D /* TabBarController.swift */; };
-		01EE9F2E28AAD7E300D96A3D /* FirstTabVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EE9F2D28AAD7E300D96A3D /* FirstTabVC.swift */; };
+		01EE9F2E28AAD7E300D96A3D /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EE9F2D28AAD7E300D96A3D /* FeedViewController.swift */; };
 		01EE9F3328AAE14200D96A3D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EE9F3228AAE14200D96A3D /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		011BEB2828ABCF2E006EAA26 /* SecondTabVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondTabVC.swift; sourceTree = "<group>"; };
+		011BEB2828ABCF2E006EAA26 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		012DDDCE28B3E18900040DD5 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		013FA36A28AD263100A1FB54 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		01C137CA28A926DC003B5405 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01C137CD28A926DC003B5405 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -32,7 +34,7 @@
 		01C137DB28A926E0003B5405 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		01C137E128A928DC003B5405 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		01EE9F2A28AAD36E00D96A3D /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		01EE9F2D28AAD7E300D96A3D /* FirstTabVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTabVC.swift; sourceTree = "<group>"; };
+		01EE9F2D28AAD7E300D96A3D /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		01EE9F3228AAE14200D96A3D /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -50,7 +52,7 @@
 		01A8A6D628ABCE55008B777A /* Second Module */ = {
 			isa = PBXGroup;
 			children = (
-				011BEB2828ABCF2E006EAA26 /* SecondTabVC.swift */,
+				011BEB2828ABCF2E006EAA26 /* ProfileViewController.swift */,
 			);
 			path = "Second Module";
 			sourceTree = "<group>";
@@ -75,13 +77,14 @@
 		01C137CC28A926DC003B5405 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				01EE9F2C28AAD7CD00D96A3D /* First Module */,
 				01A8A6D628ABCE55008B777A /* Second Module */,
 				01EE9F3128AAE12900D96A3D /* Detail Module */,
-				01EE9F2C28AAD7CD00D96A3D /* First Module */,
 				01EE9F2928AAD34600D96A3D /* Tabbar Module */,
 				01EE9F2728AACB5000D96A3D /* Application */,
 				01C137D128A926DC003B5405 /* ViewController.swift */,
 				013FA36A28AD263100A1FB54 /* PostViewController.swift */,
+				012DDDCE28B3E18900040DD5 /* InfoViewController.swift */,
 				01C137D628A926E0003B5405 /* Assets.xcassets */,
 				01C137D828A926E0003B5405 /* LaunchScreen.storyboard */,
 				01C137DB28A926E0003B5405 /* Info.plist */,
@@ -109,7 +112,7 @@
 		01EE9F2C28AAD7CD00D96A3D /* First Module */ = {
 			isa = PBXGroup;
 			children = (
-				01EE9F2D28AAD7E300D96A3D /* FirstTabVC.swift */,
+				01EE9F2D28AAD7E300D96A3D /* FeedViewController.swift */,
 			);
 			path = "First Module";
 			sourceTree = "<group>";
@@ -193,9 +196,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				013FA36B28AD263100A1FB54 /* PostViewController.swift in Sources */,
-				011BEB2928ABCF2E006EAA26 /* SecondTabVC.swift in Sources */,
-				01EE9F2E28AAD7E300D96A3D /* FirstTabVC.swift in Sources */,
+				011BEB2928ABCF2E006EAA26 /* ProfileViewController.swift in Sources */,
+				01EE9F2E28AAD7E300D96A3D /* FeedViewController.swift in Sources */,
 				01C137D228A926DC003B5405 /* ViewController.swift in Sources */,
+				012DDDCF28B3E18900040DD5 /* InfoViewController.swift in Sources */,
 				01EE9F2B28AAD36E00D96A3D /* TabBarController.swift in Sources */,
 				01C137CE28A926DC003B5405 /* AppDelegate.swift in Sources */,
 				01C137D028A926DC003B5405 /* SceneDelegate.swift in Sources */,

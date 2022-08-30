@@ -7,8 +7,7 @@
 
 import UIKit
 
-
-class FirstTabVC: UIViewController {
+class FeedViewController: UIViewController {
     
     struct Post {
         let title: String
@@ -42,7 +41,6 @@ class FirstTabVC: UIViewController {
             button.centerYAnchor.constraint(equalTo: view.centerYAnchor),
         ])
     }
-    
     
     
     @objc func tap() {
