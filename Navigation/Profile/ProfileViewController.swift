@@ -15,6 +15,7 @@ class ProfileViewController : UIViewController {
         let button = UIButton()
         button.setTitle("Second button", for: .normal)
         button.backgroundColor = .systemPink
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -29,17 +30,14 @@ class ProfileViewController : UIViewController {
         header.setupConstraints()
         
         header.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate(
             [header.leadingAnchor.constraint(equalTo: view.leadingAnchor),
              header.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
              header.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-             header.heightAnchor.constraint(equalToConstant: 220)
-            ]
-        )
+             header.heightAnchor.constraint(equalToConstant: 220),
         
-        button.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate(
-            [button.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+             button.leadingAnchor.constraint(equalTo: view.leadingAnchor),
              button.trailingAnchor.constraint(equalTo: view.trailingAnchor),
              button.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
              button.heightAnchor.constraint(equalToConstant: 40)])
@@ -54,6 +52,4 @@ class ProfileViewController : UIViewController {
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
         self.navigationItem.title = "Profile"
     }
-    
-    
 }

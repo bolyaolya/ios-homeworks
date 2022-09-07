@@ -9,11 +9,6 @@ import UIKit
 
 class FeedViewController: UIViewController {
     
-    struct Post {
-        let title: String
-    }
-    
-    
     let firstButton : UIButton = {
         let but1 = UIButton()
         but1.setTitle("One", for: .normal)
@@ -54,6 +49,10 @@ class FeedViewController: UIViewController {
 //        button.layer.cornerRadius = 14
 //        return button
 //    }()
+    
+    struct Post {
+        let title: String
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
