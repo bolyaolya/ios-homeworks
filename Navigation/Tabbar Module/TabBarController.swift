@@ -12,6 +12,7 @@ class TabBarController: UITabBarController {
     //Создаем 2 навигационных контроллера
     var firstTabNavigationController : UINavigationController!
     var secondTabNavigationController : UINavigationController!
+    var thirdTabNavigationController : UINavigationController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +22,9 @@ class TabBarController: UITabBarController {
     private func setupUI() {
         //Объявляем стартовый экран и создаем навигационные контроллеры
         firstTabNavigationController = UINavigationController.init(rootViewController: FeedViewController())
-        secondTabNavigationController = UINavigationController.init(rootViewController: ProfileViewController())
+        secondTabNavigationController = UINavigationController.init(rootViewController: LogInViewController())
+        thirdTabNavigationController = UINavigationController.init(rootViewController: ProfileViewController())
+        secondTabNavigationController.navigationBar.isHidden = false
         
         //Добавляем навигационные контроллеры в контейнер таббара
         self.viewControllers = [firstTabNavigationController, secondTabNavigationController]
@@ -35,7 +38,7 @@ class TabBarController: UITabBarController {
         secondTabNavigationController.tabBarItem = item2
         
         //Кастомизируем таббар
-        UITabBar.appearance().tintColor = .red
+        UITabBar.appearance().tintColor = .systemBlue
         UITabBar.appearance().backgroundColor = .white
     }
 }
