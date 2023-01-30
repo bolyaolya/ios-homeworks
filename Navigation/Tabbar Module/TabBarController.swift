@@ -9,15 +9,20 @@ import UIKit
 
 class TabBarController: UITabBarController {
 
+    //свойства
     //Создаем 2 навигационных контроллера
     var firstTabNavigationController : UINavigationController!
     var secondTabNavigationController : UINavigationController!
     var thirdTabNavigationController : UINavigationController!
-
+    
+    //жизненный цикл
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
+    
+    //методы
     
     private func setupUI() {
         //Объявляем стартовый экран и создаем навигационные контроллеры
