@@ -76,16 +76,6 @@ class FeedViewController: UIViewController {
         ])
     }
     
-    
-//    func setupConstraints() {
-//        view.addSubview(button)
-//        NSLayoutConstraint.activate([
-//            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//            button.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-//        ])
-//    }
-    
-    
     @objc func tap() {
         let post = PostViewController()
         navigationController?.pushViewController(post, animated: true)
