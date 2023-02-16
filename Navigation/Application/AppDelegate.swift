@@ -10,10 +10,24 @@ import UIKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    var window: UIWindow?
+    
+    //Создаем таббар контроллер
+    let tabBarController = UITabBarController()
+    let feedViewController = FeedViewController()
+    let profileViewController = ProfileViewController()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let feed = UINavigationController(rootViewController: feedViewController)
+        let profile = UINavigationController(rootViewController: profileViewController)
+                
+        tabBarController.viewControllers = [feed, profile]
+        feed.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName:"newspaper"), tag: 0)
+        profile.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName:"person"), tag: 1)
+        
+        
         return true
     }
 
@@ -30,7 +44,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-
-
+    
 }
 
