@@ -98,6 +98,7 @@ class PhotosViewController : UIViewController {
 
 extension PhotosViewController : UICollectionViewDataSource ,UICollectionViewDelegateFlowLayout {
    
+    //количество элементов
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photos.count
     }
@@ -118,6 +119,7 @@ extension PhotosViewController : UICollectionViewDataSource ,UICollectionViewDel
         return Constants.inset
     }
     
+    //расчет ширины и отступов
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let sectionInset = (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.sectionInset ?? .zero
         let interitemSpacing = (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.minimumInteritemSpacing ?? .zero
