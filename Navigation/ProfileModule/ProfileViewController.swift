@@ -25,6 +25,7 @@ class ProfileViewController : UIViewController {
         tableView.dataSource = self
         tableView.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: "ProfileCellID")
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: "PostCellID")
+        tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: "PhotosCellID")
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -33,6 +34,7 @@ class ProfileViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         layout()
+        view.backgroundColor = .white
     }
     
     //методы
@@ -50,22 +52,33 @@ class ProfileViewController : UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
+    
+    private func setupNavBar() {
+        navigationController?.navigationBar.isHidden = false
+    }
 }
 
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return post.count
+        return post.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PhotosCellID", for: indexPath) as! PhotosTableViewCell
+
+            return cell
+        } else {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCellID", for: indexPath) as! PostTableViewCell
 
             let dataSource = post[indexPath.row]
             cell.setup(dataSource)
             return cell
         }
+    }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
@@ -73,6 +86,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         }
         return nil
     }
+    
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
@@ -82,9 +96,13 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+        if indexPath.row == 0 {
+            navigationController?.pushViewController(PhotosViewController(), animated: true)
+            }
+        else {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
     }
-    
 }
 
 
