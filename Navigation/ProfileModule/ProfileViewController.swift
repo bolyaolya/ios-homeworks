@@ -5,6 +5,7 @@
 //  Created by Ольга Бойко on 30.08.2022.
 //
 import UIKit
+import StorageService
 
 class ProfileViewController : UIViewController {
     
@@ -67,7 +68,11 @@ class ProfileViewController : UIViewController {
     //MARK: методы
     
     private func layout() {
+        #if DEBUG
+        view.backgroundColor = .red
+        #else
         view.backgroundColor = .white
+        #endif
         view.addSubview(tableView)
         view.addSubview(blurView)
         view.addSubview(copyAvatar)
