@@ -9,12 +9,7 @@ import UIKit
 class ProfileViewController : UIViewController {
     
     
-    //свойства
-    
-    private var headerView : ProfileHeaderView = {
-        let view = ProfileHeaderView()
-        return view
-    }()
+    //MARK: свойства
     
     private lazy var tableView : UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -30,18 +25,60 @@ class ProfileViewController : UIViewController {
         return tableView
     }()
     
-    //жизненный цикл
+    
+    ///копия аватара
+    private lazy var copyAvatar : UIImageView = {
+        let copyAvatar = UIImageView()
+        copyAvatar.image = UIImage(named: "hypno")
+        copyAvatar.clipsToBounds = true
+        copyAvatar.layer.cornerRadius = 25
+        copyAvatar.isUserInteractionEnabled = true
+        copyAvatar.translatesAutoresizingMaskIntoConstraints = false
+        return copyAvatar
+    }()
+    
+    private lazy var sizeOfAvatar : CGPoint = CGPoint(x: copyAvatar.frame.size.width, y: copyAvatar.frame.size.height)
+    private lazy var spaceToAvatar : CGPoint = CGPoint(x: copyAvatar.frame.origin.x, y: copyAvatar.frame.origin.y)
+    
+    private lazy var blurView : UIVisualEffectView = {
+        let blurView = UIVisualEffectView()
+        blurView.isHidden = true
+        blurView.translatesAutoresizingMaskIntoConstraints = false
+        return blurView
+    }()
+    
+    private lazy var closeButton : UIButton = {
+        let closeButton = UIButton()
+        closeButton.setImage(UIImage(systemName: "xmark"), for: .normal)
+        closeButton.layer.cornerRadius = 20
+        closeButton.isHidden = true
+        closeButton.clipsToBounds = true
+        closeButton.isUserInteractionEnabled = true
+        closeButton.translatesAutoresizingMaskIntoConstraints = false
+        return closeButton
+    }()
+    
+    //MARK: жизненный цикл
     override func viewDidLoad() {
         super.viewDidLoad()
         layout()
-        view.backgroundColor = .white
     }
     
-    //методы
+    //MARK: методы
     
     private func layout() {
+        view.backgroundColor = .white
         view.addSubview(tableView)
+        view.addSubview(blurView)
+        view.addSubview(copyAvatar)
+        view.addSubview(closeButton)
+        setupNavBar()
         setupConstraints()
+        avatarTapGesture()
+        closeButtonTapGesture()
+        
+        let blurViewEffect = UIBlurEffect(style: .systemChromeMaterialLight)
+        blurView.effect = blurViewEffect
     }
     
     func setupConstraints() {
@@ -49,19 +86,82 @@ class ProfileViewController : UIViewController {
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            blurView.topAnchor.constraint(equalTo: view.topAnchor),
+            blurView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            blurView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            blurView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            copyAvatar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            copyAvatar.topAnchor.constraint(equalTo: tableView.topAnchor, constant: 16),
+            copyAvatar.widthAnchor.constraint(equalToConstant: 100),
+            copyAvatar.heightAnchor.constraint(equalToConstant: 100),
+            
+            closeButton.heightAnchor.constraint(equalToConstant: 60),
+            closeButton.widthAnchor.constraint(equalToConstant: 60),
+            closeButton.topAnchor.constraint(equalTo: blurView.safeAreaLayoutGuide.topAnchor, constant: 16),
+            closeButton.trailingAnchor.constraint(equalTo: blurView.trailingAnchor, constant: -16)
         ])
     }
     
     private func setupNavBar() {
-        navigationController?.navigationBar.isHidden = false
+        navigationController?.navigationBar.isHidden = true
+    }
+    
+    ///тап по аватару
+    private func avatarTapGesture() {
+        let avatarTapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGestureAvatar))
+        copyAvatar.addGestureRecognizer(avatarTapGesture)
+    }
+    
+    ///тап по кнопке закрытия
+    private func closeButtonTapGesture() {
+        let closeButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(TapGestureClose))
+        closeButton.addGestureRecognizer(closeButtonTapGesture)
+        }
+    
+    @objc private func tapGestureAvatar(_ gestureRecognizer: UITapGestureRecognizer) {
+        
+        ///расчет размера, на сколько увеличивать аватарку
+        let scaleRatio = self.blurView.frame.width / self.copyAvatar.frame.width
+        
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn) {
+            ///отображаем полупрозрачную вью
+            self.blurView.isHidden = false
+            
+            ///размещаем аватар по центру и увеличиваем
+            self.copyAvatar.center = self.blurView.center
+            self.copyAvatar.transform = CGAffineTransform(scaleX: scaleRatio, y: scaleRatio)
+            self.copyAvatar.isUserInteractionEnabled = false
+            
+        } completion: { _ in
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn) {
+                self.closeButton.isHidden = false
+            }
+        }
+    }
+    
+    ///тап по кнопке закрытия
+    
+    @objc private func TapGestureClose(_ gestureRecognizer: UITapGestureRecognizer) {
+        
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn) {
+            self.closeButton.isHidden = true
+        } completion: { _ in
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn) {
+                    self.copyAvatar.frame = CGRect(x: self.spaceToAvatar.x, y: self.spaceToAvatar.y, width: self.sizeOfAvatar.x, height: self.sizeOfAvatar.y)
+                    self.copyAvatar.transform = .identity
+                    self.blurView.isHidden = true
+            }
+        }
     }
 }
 
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return post.count + 1
+        post.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -74,7 +174,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCellID", for: indexPath) as! PostTableViewCell
 
-            let dataSource = post[indexPath.row]
+            let dataSource = post[indexPath.row - 1]
             cell.setup(dataSource)
             return cell
         }
@@ -95,6 +195,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         return 0
         }
     
+    ///переход на другое окно тапом по ряду
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
             navigationController?.pushViewController(PhotosViewController(), animated: true)
@@ -104,5 +205,3 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
 }
-
-

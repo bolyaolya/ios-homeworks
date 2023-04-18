@@ -17,18 +17,20 @@ class FeedViewController: UIViewController {
     let firstButton : UIButton = {
         let but1 = UIButton()
         but1.setTitle("One", for: .normal)
-        but1.backgroundColor = .green
+        but1.backgroundColor = .systemBlue
+        but1.layer.cornerRadius = 10
         but1.translatesAutoresizingMaskIntoConstraints = false
-        but1.addTarget(self, action: #selector(tap), for: .touchUpInside)
+        but1.addTarget(FeedViewController.self, action: #selector(tap), for: .touchUpInside)
         return but1
     }()
     
     let secondButton : UIButton = {
         let but2 = UIButton()
         but2.setTitle("Two", for: .normal)
-        but2.backgroundColor = .yellow
+        but2.backgroundColor = .systemBlue
+        but2.layer.cornerRadius = 10
         but2.translatesAutoresizingMaskIntoConstraints = false
-        but2.addTarget(self, action: #selector(tap), for: .touchUpInside)
+        but2.addTarget(FeedViewController.self, action: #selector(tap), for: .touchUpInside)
         return but2
     }()
     
@@ -38,7 +40,7 @@ class FeedViewController: UIViewController {
         stackView.alignment = .center
         stackView.backgroundColor = .systemBlue
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.spacing = 10
+        stackView.spacing = 20
         stackView.distribution = .fillEqually
         return stackView
     }()
@@ -57,7 +59,7 @@ class FeedViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .yellow
+        view.backgroundColor = .white
 //        button.frame = CGRect(x: 0, y: 0, width: 100, height: 80)
 //        button.center = self.view.center
 //        button.addTarget(self, action: #selector(tap), for: .touchUpInside)
@@ -71,8 +73,16 @@ class FeedViewController: UIViewController {
         NSLayoutConstraint.activate([
             stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            stackView.widthAnchor.constraint(equalToConstant: 300),
-            stackView.heightAnchor.constraint(equalToConstant: 400)
+//            stackView.widthAnchor.constraint(equalToConstant: 200),
+//            stackView.heightAnchor.constraint(equalToConstant: 200),
+            
+            firstButton.heightAnchor.constraint(equalToConstant: 30),
+            firstButton.widthAnchor.constraint(equalToConstant: 50),
+            
+            secondButton.topAnchor.constraint(equalTo: firstButton.bottomAnchor, constant: 40),
+            secondButton.heightAnchor.constraint(equalToConstant: 30),
+            secondButton.widthAnchor.constraint(equalToConstant: 50)
+            
         ])
     }
     

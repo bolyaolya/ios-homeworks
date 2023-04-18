@@ -17,6 +17,8 @@ class ProfileHeaderView : UITableViewHeaderFooterView {
         image.layer.borderWidth = 3
         image.layer.borderColor = UIColor.white.cgColor
         image.clipsToBounds = true
+        image.layer.cornerRadius = 25
+        image.isUserInteractionEnabled = true
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -40,7 +42,7 @@ class ProfileHeaderView : UITableViewHeaderFooterView {
         button.layer.shadowRadius = 4
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.7
-        button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        button.addTarget(ProfileHeaderView.self, action: #selector(buttonPressed), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -63,7 +65,7 @@ class ProfileHeaderView : UITableViewHeaderFooterView {
         statusField.font = .systemFont(ofSize: 15, weight: .regular)
         statusField.textColor = .black
         statusField.textAlignment = .center
-        statusField.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
+        statusField.addTarget(ProfileHeaderView.self, action: #selector(statusTextChanged), for: .editingChanged)
         statusField.translatesAutoresizingMaskIntoConstraints = false
         return statusField
     }()
