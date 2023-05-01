@@ -12,6 +12,8 @@ class ProfileViewController : UIViewController {
     
     //MARK: свойства
     
+    var user : User = User(login: "olyabolya", fullName: "Olya Boyko", avatar: UIImage(named: "hypno") ?? UIImage(), status: "I love Formula 1")
+    
     private lazy var tableView : UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.backgroundColor = .white
@@ -187,7 +189,9 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
-            return tableView.dequeueReusableHeaderFooterView(withIdentifier: "ProfileCellID")
+            let profile = ProfileHeaderView()
+            profile.setup(user: user)
+            return profile
         }
         return nil
     }

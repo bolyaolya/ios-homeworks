@@ -9,6 +9,9 @@ import UIKit
 
 class LogInViewController : UIViewController, UITextFieldDelegate {
     
+    //уведомление о неправильных данных для входа
+    let alertMessage = UIAlertController(title: "Ошибка", message: "Неверный логин", preferredStyle: .alert)
+    
     //свойства
     
     lazy var scrollView: UIScrollView = {
@@ -179,8 +182,23 @@ class LogInViewController : UIViewController, UITextFieldDelegate {
     // ------------------------
     
     @objc func login() {
-        let profileViewController = ProfileViewController()
-        navigationController?.pushViewController(profileViewController, animated: true)
+        
+        //проверяем что ввели в поле mail
+        let checkingEmail = email.text
+        
+        #if DEBUG
+        let userLogin = TestUserService(user: User(login: "test", fullName: "testovye testy", avatar: UIImage(named: "hypno") ?? UIImage(), status: "I'm testing something"))
+        #else
+        let userLogin = CurrentUserService(user: User(login: "olyabolya", fullName: "Olya Boyko", avatar: UIImage(named: "avatar") ?? UIImage(), status: "I'm just using this app"))
+        #endif
+        
+        if userLogin.checkLogin(login: checkingEmail ?? "") != nil {
+            let profileViewController = ProfileViewController()
+            profileViewController.user = userLogin.user
+            navigationController?.pushViewController(profileViewController, animated: true)
+        } else {
+            self.present(alertMessage, animated: true, completion: nil)
+        }
     }
     
     
