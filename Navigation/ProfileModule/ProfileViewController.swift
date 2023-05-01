@@ -34,6 +34,7 @@ class ProfileViewController : UIViewController {
         copyAvatar.clipsToBounds = true
         copyAvatar.layer.cornerRadius = 25
         copyAvatar.isUserInteractionEnabled = true
+        copyAvatar.isHidden = true
         copyAvatar.translatesAutoresizingMaskIntoConstraints = false
         return copyAvatar
     }()
@@ -133,6 +134,7 @@ class ProfileViewController : UIViewController {
         
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn) {
             ///отображаем полупрозрачную вью
+            self.copyAvatar.isHidden = false
             self.blurView.isHidden = false
             
             ///размещаем аватар по центру и увеличиваем
@@ -158,6 +160,7 @@ class ProfileViewController : UIViewController {
                     self.copyAvatar.frame = CGRect(x: self.spaceToAvatar.x, y: self.spaceToAvatar.y, width: self.sizeOfAvatar.x, height: self.sizeOfAvatar.y)
                     self.copyAvatar.transform = .identity
                     self.blurView.isHidden = true
+                    self.copyAvatar.isHidden = true
             }
         }
     }
