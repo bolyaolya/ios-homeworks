@@ -7,6 +7,9 @@
 
 import UIKit
 
+//добавляем делегат
+var loginDelegate : LoginViewControllerDelegate?
+
 class LogInViewController : UIViewController, UITextFieldDelegate {
     
     //уведомление о неправильных данных для входа
@@ -183,6 +186,7 @@ class LogInViewController : UIViewController, UITextFieldDelegate {
         
         //проверяем что ввели в поле mail
         let checkingEmail = email.text
+        let checkingPassword = password.text
         
         #if DEBUG
         let userLogin = TestUserService(user: User(login: "test", fullName: "testovye testy", avatar: UIImage(named: "hypno") ?? UIImage(), status: "I'm testing something"))
@@ -190,12 +194,12 @@ class LogInViewController : UIViewController, UITextFieldDelegate {
         let userLogin = CurrentUserService(user: User(login: "olyabolya", fullName: "Olya Boyko", avatar: UIImage(named: "avatar") ?? UIImage(), status: "I'm just using this app"))
         #endif
         
-        if userLogin.checkLogin(login: checkingEmail ?? "") != nil {
+        if loginDelegate?.check(login: checkingEmail ?? "", password: checkingPassword ?? "") == true {
             let profileViewController = ProfileViewController()
-            profileViewController.user = userLogin.user
-            navigationController?.pushViewController(profileViewController, animated: true)
-        } else {
-            self.present(alertMessage, animated: true, completion: nil)
+                    profileViewController.user = userLogin.user
+                    navigationController?.pushViewController(profileViewController, animated: true)
+                } else {
+                    self.present(alertMessage, animated: true, completion: nil)
         }
     }
     

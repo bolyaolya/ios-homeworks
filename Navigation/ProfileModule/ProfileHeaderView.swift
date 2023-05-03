@@ -42,7 +42,6 @@ class ProfileHeaderView : UITableViewHeaderFooterView {
         button.layer.shadowRadius = 4
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.7
-        button.addTarget(ProfileHeaderView.self, action: #selector(buttonPressed), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -65,7 +64,6 @@ class ProfileHeaderView : UITableViewHeaderFooterView {
         statusField.font = .systemFont(ofSize: 15, weight: .regular)
         statusField.textColor = .black
         statusField.textAlignment = .center
-        statusField.addTarget(ProfileHeaderView.self, action: #selector(statusTextChanged), for: .editingChanged)
         statusField.translatesAutoresizingMaskIntoConstraints = false
         return statusField
     }()
@@ -102,6 +100,8 @@ class ProfileHeaderView : UITableViewHeaderFooterView {
     func layout() {
         addAllSubviews()
         setupConstraints()
+        setStatusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        statusTextField.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
     }
     
     func setupConstraints() {
@@ -132,10 +132,13 @@ class ProfileHeaderView : UITableViewHeaderFooterView {
     }
     
     @objc func statusTextChanged(_ textField: UITextField) {
-        statusText = statusTextField.text!
+        if let text = textField.text {
+                statusText = text
+        }
     }
     
     @objc func buttonPressed() {
-        statusLabel.text = statusText
+                statusLabel.text = statusText
+                statusTextField.text = ""
     }
 }
