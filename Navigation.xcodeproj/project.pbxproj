@@ -25,6 +25,7 @@
 		01EE9F2B28AAD36E00D96A3D /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EE9F2A28AAD36E00D96A3D /* TabBarController.swift */; };
 		01EE9F2E28AAD7E300D96A3D /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EE9F2D28AAD7E300D96A3D /* FeedViewController.swift */; };
 		01EE9F3328AAE14200D96A3D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EE9F3228AAE14200D96A3D /* DetailViewController.swift */; };
+		0C1DA9DE29FFE8CE000730DE /* UserProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1DA9DD29FFE8CE000730DE /* UserProperties.swift */; };
 		0C1F098F29EEFD5D003C483C /* StorageService.docc in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F098E29EEFD5D003C483C /* StorageService.docc */; };
 		0C1F099D29EEFD5D003C483C /* StorageService.h in Headers */ = {isa = PBXBuildFile; fileRef = 0C1F098D29EEFD5D003C483C /* StorageService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0C1F09A029EEFD5D003C483C /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1F098B29EEFD5D003C483C /* StorageService.framework */; };
@@ -81,6 +82,7 @@
 		01EE9F2A28AAD36E00D96A3D /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		01EE9F2D28AAD7E300D96A3D /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		01EE9F3228AAE14200D96A3D /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		0C1DA9DD29FFE8CE000730DE /* UserProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProperties.swift; sourceTree = "<group>"; };
 		0C1F098B29EEFD5D003C483C /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C1F098D29EEFD5D003C483C /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
 		0C1F098E29EEFD5D003C483C /* StorageService.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = StorageService.docc; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				015EC8C728D244AF0057F34D /* LogInViewController.swift */,
+				0C1DA9DD29FFE8CE000730DE /* UserProperties.swift */,
 			);
 			path = LogInModule;
 			sourceTree = "<group>";
@@ -371,6 +374,7 @@
 				01C137CE28A926DC003B5405 /* AppDelegate.swift in Sources */,
 				010DF7312987ED1C008EEA6E /* PhotosTableViewCell.swift in Sources */,
 				014C731E28BE1A8400C284A2 /* ProfileHeaderView.swift in Sources */,
+				0C1DA9DE29FFE8CE000730DE /* UserProperties.swift in Sources */,
 				010DF7352987EE18008EEA6E /* PhotosCollectionViewCell.swift in Sources */,
 				010DF7332987EE04008EEA6E /* PhotosViewController.swift in Sources */,
 				01C137D028A926DC003B5405 /* SceneDelegate.swift in Sources */,

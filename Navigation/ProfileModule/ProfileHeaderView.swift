@@ -86,6 +86,12 @@ class ProfileHeaderView : UITableViewHeaderFooterView {
     
     //методы
     
+    func setup(user: User) {
+        fullNameLabel.text = user.fullName
+        statusLabel.text = user.status
+        avatarImageView.image = user.avatar
+    }
+    
     func addAllSubviews() {
         addSubview(avatarImageView)
         addSubview(fullNameLabel)
