@@ -43,7 +43,6 @@ class ProfileHeaderView : UITableViewHeaderFooterView {
         button.layer.shadowRadius = 4
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.7
-        button.addTarget(ProfileHeaderView.self, action: #selector(buttonPressed), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -140,6 +139,9 @@ class ProfileHeaderView : UITableViewHeaderFooterView {
     }
     
     @objc func buttonPressed() {
+        let buttonPressed = UITapGestureRecognizer(target: self, action: #selector(buttonPressed))
+        setStatusButton.isUserInteractionEnabled = true
+        setStatusButton.addGestureRecognizer(buttonPressed)
         statusLabel.text = statusText
     }
 }
