@@ -36,7 +36,7 @@ class ProfileViewController : UIViewController {
         copyAvatar.clipsToBounds = true
         copyAvatar.layer.cornerRadius = 25
         copyAvatar.isUserInteractionEnabled = true
-        copyAvatar.isHidden = true
+//        copyAvatar.isHidden = true
         copyAvatar.translatesAutoresizingMaskIntoConstraints = false
         return copyAvatar
     }()
@@ -120,6 +120,9 @@ class ProfileViewController : UIViewController {
     ///тап по аватару
     private func avatarTapGesture() {
         let avatarTapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGestureAvatar))
+        avatarTapGesture.numberOfTapsRequired = 1
+        avatarTapGesture.numberOfTouchesRequired = 1
+        copyAvatar.isUserInteractionEnabled = true
         copyAvatar.addGestureRecognizer(avatarTapGesture)
     }
     
