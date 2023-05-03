@@ -99,8 +99,9 @@ class LogInViewController : UIViewController, UITextFieldDelegate {
         view.backgroundColor = .white
         self.navigationController?.navigationBar.isHidden = true
         layout()
-        
         setupConstraints()
+        
+        alertMessage.addAction(UIAlertAction(title: "Закрыть", style: .cancel))
     }
     
     //методы
@@ -161,9 +162,6 @@ class LogInViewController : UIViewController, UITextFieldDelegate {
                 self.scrollView.contentOffset = CGPoint(x: 0, y: yOffset)
             }
         }
-    
-    
-    
     
         // функции скрытия клавиатуры
         @objc func didHideKeyboard(_ notification: Notification){
