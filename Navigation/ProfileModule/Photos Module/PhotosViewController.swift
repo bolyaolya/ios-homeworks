@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import iOSIntPackage
 
 class PhotosViewController : UIViewController {
     
@@ -19,6 +20,10 @@ class PhotosViewController : UIViewController {
         static let minimumInteritemSpacing : CGFloat = 8
         static let inset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
     }
+    
+    var imagePublisher = ImagePublisherFacade()
+    var dataSource = Photos.massiveOfPhotos()
+    var Massiveimages = [UIImage]()
     
     private lazy var layout : UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
@@ -38,32 +43,33 @@ class PhotosViewController : UIViewController {
         return collectionView
     }()
     
-    private struct Photos {
+    struct Photos {
         let image : String
+        static func massiveOfPhotos() -> [Photos] {
+            return [
+                Photos(image: "1"),
+                Photos(image: "2"),
+                Photos(image: "3"),
+                Photos(image: "4"),
+                Photos(image: "5"),
+                Photos(image: "6"),
+                Photos(image: "7"),
+                Photos(image: "8"),
+                Photos(image: "9"),
+                Photos(image: "10"),
+                Photos(image: "11"),
+                Photos(image: "12"),
+                Photos(image: "13"),
+                Photos(image: "14"),
+                Photos(image: "15"),
+                Photos(image: "16"),
+                Photos(image: "17"),
+                Photos(image: "18"),
+                Photos(image: "19"),
+                Photos(image: "20")
+            ]
+        }
     }
-    
-    private var photos : [Photos] = [
-        Photos.init(image: "1"),
-        Photos.init(image: "2"),
-        Photos.init(image: "3"),
-        Photos.init(image: "4"),
-        Photos.init(image: "5"),
-        Photos.init(image: "6"),
-        Photos.init(image: "7"),
-        Photos.init(image: "8"),
-        Photos.init(image: "9"),
-        Photos.init(image: "10"),
-        Photos.init(image: "11"),
-        Photos.init(image: "12"),
-        Photos.init(image: "13"),
-        Photos.init(image: "14"),
-        Photos.init(image: "15"),
-        Photos.init(image: "16"),
-        Photos.init(image: "17"),
-        Photos.init(image: "18"),
-        Photos.init(image: "19"),
-        Photos.init(image: "20")
-    ]
     
     //жизненный цикл
     
@@ -71,6 +77,15 @@ class PhotosViewController : UIViewController {
         super.viewDidLoad()
         setupView()
         navigationController?.navigationBar.isHidden = false
+        
+        imagePublisher.subscribe(self)
+        imagePublisher.addImagesWithTimer(time: 3.0, repeat: 20)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        imagePublisher.removeSubscription(for: self)
+        imagePublisher.rechargeImageLibrary()
     }
     
     // методы
@@ -100,7 +115,7 @@ extension PhotosViewController : UICollectionViewDataSource ,UICollectionViewDel
    
     //количество элементов
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photos.count
+        return Photos.massiveOfPhotos().count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -110,7 +125,7 @@ extension PhotosViewController : UICollectionViewDataSource ,UICollectionViewDel
             return cell
         }
         
-        let photos = photos[indexPath.row]
+        let photos = Photos.massiveOfPhotos()[indexPath.row]
         cell.imageView.image = UIImage(named: photos.image)
         return cell
     }
@@ -127,5 +142,12 @@ extension PhotosViewController : UICollectionViewDataSource ,UICollectionViewDel
         let itemWidth = floor(width / Constants.numberOfColumns)
         return CGSize(width: itemWidth, height: itemWidth)
     }
+    
 }
-
+extension PhotosViewController : ImageLibrarySubscriber {
+    
+    func receive(images: [UIImage]) {
+        Massiveimages = images
+        collectionView.reloadData()
+    }
+}
