@@ -23,7 +23,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let feed = UINavigationController(rootViewController: feedViewController)
         let profile = UINavigationController(rootViewController: profileViewController)
         
-        loginDelegate = MyLoginFactory().makeLoginInspector()
+//        loginDelegate = MyLoginFactory().makeLoginInspector()
+        
+        let factory = MyLoginFactory()
+        let loginInspector = factory.makeLoginInspector()
+        let loginVC = LogInViewController()
+        loginVC.loginDelegate = loginInspector
                 
         tabBarController.viewControllers = [feed, profile]
         feed.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName:"newspaper"), tag: 0)
