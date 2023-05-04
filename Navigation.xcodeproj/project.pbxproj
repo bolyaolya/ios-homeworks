@@ -31,10 +31,15 @@
 		0C1F09A029EEFD5D003C483C /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1F098B29EEFD5D003C483C /* StorageService.framework */; };
 		0C1F09A129EEFD5D003C483C /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1F098B29EEFD5D003C483C /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0C1F09AA29EEFD7F003C483C /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F09A929EEFD7F003C483C /* Post.swift */; };
+
+		0C4D821F2A0280EC0090D4E8 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4D821E2A0280EC0090D4E8 /* Checker.swift */; };
+		0C4D82212A0290520090D4E8 /* LoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4D82202A0290520090D4E8 /* LoginFactory.swift */; };
+
 		0C405B7F29F2C63300F4FF61 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0C405B7E29F2C63300F4FF61 /* SnapKit */; };
 		0C405B8229F2C65300F4FF61 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 0C405B8129F2C65300F4FF61 /* iOSIntPackage */; };
 		0C405B8529F2C67B00F4FF61 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0C405B8429F2C67B00F4FF61 /* SnapKit */; };
 		0C405B8729F2C67F00F4FF61 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 0C405B8629F2C67F00F4FF61 /* iOSIntPackage */; };
+
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +92,8 @@
 		0C1F098D29EEFD5D003C483C /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
 		0C1F098E29EEFD5D003C483C /* StorageService.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = StorageService.docc; sourceTree = "<group>"; };
 		0C1F09A929EEFD7F003C483C /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		0C4D821E2A0280EC0090D4E8 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
+		0C4D82202A0290520090D4E8 /* LoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +134,8 @@
 			children = (
 				015EC8C728D244AF0057F34D /* LogInViewController.swift */,
 				0C1DA9DD29FFE8CE000730DE /* UserProperties.swift */,
+				0C4D821E2A0280EC0090D4E8 /* Checker.swift */,
+				0C4D82202A0290520090D4E8 /* LoginFactory.swift */,
 			);
 			path = LogInModule;
 			sourceTree = "<group>";
@@ -371,11 +380,13 @@
 				012DDDCF28B3E18900040DD5 /* InfoViewController.swift in Sources */,
 				01EE9F2B28AAD36E00D96A3D /* TabBarController.swift in Sources */,
 				014C732028BE1AB900C284A2 /* ProfileViewController.swift in Sources */,
+				0C4D821F2A0280EC0090D4E8 /* Checker.swift in Sources */,
 				01C137CE28A926DC003B5405 /* AppDelegate.swift in Sources */,
 				010DF7312987ED1C008EEA6E /* PhotosTableViewCell.swift in Sources */,
 				014C731E28BE1A8400C284A2 /* ProfileHeaderView.swift in Sources */,
 				0C1DA9DE29FFE8CE000730DE /* UserProperties.swift in Sources */,
 				010DF7352987EE18008EEA6E /* PhotosCollectionViewCell.swift in Sources */,
+				0C4D82212A0290520090D4E8 /* LoginFactory.swift in Sources */,
 				010DF7332987EE04008EEA6E /* PhotosViewController.swift in Sources */,
 				01C137D028A926DC003B5405 /* SceneDelegate.swift in Sources */,
 				01EE9F3328AAE14200D96A3D /* DetailViewController.swift in Sources */,
