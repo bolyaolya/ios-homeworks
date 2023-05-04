@@ -39,10 +39,10 @@ class FeedViewController: UIViewController {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .center
+        stackView.distribution = .equalCentering
         stackView.backgroundColor = .systemBlue
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.spacing = 20
-        stackView.distribution = .fillEqually
+        stackView.spacing = 10.0
         return stackView
     }()
     
@@ -61,10 +61,6 @@ class FeedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-//        button.frame = CGRect(x: 0, y: 0, width: 100, height: 80)
-//        button.center = self.view.center
-//        button.addTarget(self, action: #selector(tap), for: .touchUpInside)
-//        view.addSubview(button)
         
         view.addSubview(stackView)
         stackView.addArrangedSubview(firstButton)
@@ -74,13 +70,11 @@ class FeedViewController: UIViewController {
         NSLayoutConstraint.activate([
             stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-//            stackView.widthAnchor.constraint(equalToConstant: 200),
-//            stackView.heightAnchor.constraint(equalToConstant: 200),
             
             firstButton.heightAnchor.constraint(equalToConstant: 30),
             firstButton.widthAnchor.constraint(equalToConstant: 50),
-            
-            secondButton.topAnchor.constraint(equalTo: firstButton.bottomAnchor, constant: 40),
+//
+            secondButton.topAnchor.constraint(equalTo: firstButton.bottomAnchor, constant: 20),
             secondButton.heightAnchor.constraint(equalToConstant: 30),
             secondButton.widthAnchor.constraint(equalToConstant: 50)
             
