@@ -7,10 +7,10 @@
 
 import UIKit
 
-//добавляем делегат
-var loginDelegate : LoginViewControllerDelegate?
-
 class LogInViewController : UIViewController, UITextFieldDelegate {
+    
+    //добавляем делегат
+    var loginDelegate : LoginViewControllerDelegate?
     
     //уведомление о неправильных данных для входа
     let alertMessage = UIAlertController(title: "Ошибка", message: "Неверный логин", preferredStyle: .alert)
