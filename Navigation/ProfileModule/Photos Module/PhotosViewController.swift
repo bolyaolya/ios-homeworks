@@ -23,6 +23,7 @@ class PhotosViewController : UIViewController {
     
     var imagePublisher = ImagePublisherFacade()
     var dataSource = [UIImage]()
+//    var Massiveimages = [UIImage]()
     
     private lazy var layout : UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
