@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import iOSIntPackage
 
 class PhotosViewController : UIViewController {
     
@@ -19,6 +20,9 @@ class PhotosViewController : UIViewController {
         static let minimumInteritemSpacing : CGFloat = 8
         static let inset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
     }
+    
+    var imagePublisher = ImagePublisherFacade()
+    var dataSource = [UIImage]()
     
     private lazy var layout : UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
@@ -38,32 +42,33 @@ class PhotosViewController : UIViewController {
         return collectionView
     }()
     
-    private struct Photos {
+    struct photos {
         let image : String
+        static func dataSource() -> [photos] {
+            return [
+                photos(image: "1"),
+                photos(image: "2"),
+                photos(image: "3"),
+                photos(image: "4"),
+                photos(image: "5"),
+                photos(image: "6"),
+                photos(image: "7"),
+                photos(image: "8"),
+                photos(image: "9"),
+                photos(image: "10"),
+                photos(image: "11"),
+                photos(image: "12"),
+                photos(image: "13"),
+                photos(image: "14"),
+                photos(image: "15"),
+                photos(image: "16"),
+                photos(image: "17"),
+                photos(image: "18"),
+                photos(image: "19"),
+                photos(image: "20")
+            ]
+        }
     }
-    
-    private var photos : [Photos] = [
-        Photos.init(image: "1"),
-        Photos.init(image: "2"),
-        Photos.init(image: "3"),
-        Photos.init(image: "4"),
-        Photos.init(image: "5"),
-        Photos.init(image: "6"),
-        Photos.init(image: "7"),
-        Photos.init(image: "8"),
-        Photos.init(image: "9"),
-        Photos.init(image: "10"),
-        Photos.init(image: "11"),
-        Photos.init(image: "12"),
-        Photos.init(image: "13"),
-        Photos.init(image: "14"),
-        Photos.init(image: "15"),
-        Photos.init(image: "16"),
-        Photos.init(image: "17"),
-        Photos.init(image: "18"),
-        Photos.init(image: "19"),
-        Photos.init(image: "20")
-    ]
     
     //жизненный цикл
     
@@ -71,6 +76,15 @@ class PhotosViewController : UIViewController {
         super.viewDidLoad()
         setupView()
         navigationController?.navigationBar.isHidden = false
+        
+        imagePublisher.subscribe(self)
+        imagePublisher.addImagesWithTimer(time: 3.0, repeat: 20)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        imagePublisher.removeSubscription(for: self)
+        imagePublisher.rechargeImageLibrary()
     }
     
     // методы
@@ -100,7 +114,7 @@ extension PhotosViewController : UICollectionViewDataSource ,UICollectionViewDel
    
     //количество элементов
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photos.count
+        return photos.dataSource().count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -110,7 +124,7 @@ extension PhotosViewController : UICollectionViewDataSource ,UICollectionViewDel
             return cell
         }
         
-        let photos = photos[indexPath.row]
+        let photos = photos.dataSource()[indexPath.row]
         cell.imageView.image = UIImage(named: photos.image)
         return cell
     }
@@ -127,5 +141,12 @@ extension PhotosViewController : UICollectionViewDataSource ,UICollectionViewDel
         let itemWidth = floor(width / Constants.numberOfColumns)
         return CGSize(width: itemWidth, height: itemWidth)
     }
+    
 }
-
+extension PhotosViewController : ImageLibrarySubscriber {
+    
+    func receive(images: [UIImage]) {
+        dataSource = images
+        collectionView.reloadData()
+    }
+}

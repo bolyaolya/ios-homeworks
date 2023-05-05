@@ -7,13 +7,15 @@
 
 import UIKit
 
+//добавляем делегат
+var loginDelegate : LoginViewControllerDelegate?
+
 class LogInViewController : UIViewController, UITextFieldDelegate {
     
-    //добавляем делегат
-    var loginDelegate : LoginViewControllerDelegate?
+    
     
     //уведомление о неправильных данных для входа
-    let alertMessage = UIAlertController(title: "Ошибка", message: "Неверный логин", preferredStyle: .alert)
+    let alertMessage = UIAlertController(title: "Ошибка", message: "Неверный логин или пароль", preferredStyle: .alert)
     
     //свойства
     
@@ -62,6 +64,7 @@ class LogInViewController : UIViewController, UITextFieldDelegate {
         email.font = .systemFont(ofSize: 16, weight: .regular)
         email.placeholder = "Email or phone"
         email.keyboardType = .emailAddress
+        email.text = "test"
         email.clearButtonMode = .whileEditing
         email.returnKeyType = .continue
         email.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: email.frame.height))
@@ -77,6 +80,7 @@ class LogInViewController : UIViewController, UITextFieldDelegate {
         password.textColor = .black
         password.font = .systemFont(ofSize: 16, weight: .regular)
         password.placeholder = "Password"
+        password.text = "test"
         password.returnKeyType = .done
         password.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: password.frame.height))
         password.leftViewMode = .always
