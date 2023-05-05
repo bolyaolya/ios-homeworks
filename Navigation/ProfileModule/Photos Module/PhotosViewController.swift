@@ -22,8 +22,7 @@ class PhotosViewController : UIViewController {
     }
     
     var imagePublisher = ImagePublisherFacade()
-    var dataSource = Photos.massiveOfPhotos()
-    var Massiveimages = [UIImage]()
+    var dataSource = [UIImage]()
     
     private lazy var layout : UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
@@ -43,30 +42,30 @@ class PhotosViewController : UIViewController {
         return collectionView
     }()
     
-    struct Photos {
+    struct photos {
         let image : String
-        static func massiveOfPhotos() -> [Photos] {
+        static func dataSource() -> [photos] {
             return [
-                Photos(image: "1"),
-                Photos(image: "2"),
-                Photos(image: "3"),
-                Photos(image: "4"),
-                Photos(image: "5"),
-                Photos(image: "6"),
-                Photos(image: "7"),
-                Photos(image: "8"),
-                Photos(image: "9"),
-                Photos(image: "10"),
-                Photos(image: "11"),
-                Photos(image: "12"),
-                Photos(image: "13"),
-                Photos(image: "14"),
-                Photos(image: "15"),
-                Photos(image: "16"),
-                Photos(image: "17"),
-                Photos(image: "18"),
-                Photos(image: "19"),
-                Photos(image: "20")
+                photos(image: "1"),
+                photos(image: "2"),
+                photos(image: "3"),
+                photos(image: "4"),
+                photos(image: "5"),
+                photos(image: "6"),
+                photos(image: "7"),
+                photos(image: "8"),
+                photos(image: "9"),
+                photos(image: "10"),
+                photos(image: "11"),
+                photos(image: "12"),
+                photos(image: "13"),
+                photos(image: "14"),
+                photos(image: "15"),
+                photos(image: "16"),
+                photos(image: "17"),
+                photos(image: "18"),
+                photos(image: "19"),
+                photos(image: "20")
             ]
         }
     }
@@ -115,7 +114,7 @@ extension PhotosViewController : UICollectionViewDataSource ,UICollectionViewDel
    
     //количество элементов
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Photos.massiveOfPhotos().count
+        return photos.dataSource().count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -125,7 +124,7 @@ extension PhotosViewController : UICollectionViewDataSource ,UICollectionViewDel
             return cell
         }
         
-        let photos = Photos.massiveOfPhotos()[indexPath.row]
+        let photos = photos.dataSource()[indexPath.row]
         cell.imageView.image = UIImage(named: photos.image)
         return cell
     }
@@ -147,7 +146,7 @@ extension PhotosViewController : UICollectionViewDataSource ,UICollectionViewDel
 extension PhotosViewController : ImageLibrarySubscriber {
     
     func receive(images: [UIImage]) {
-        Massiveimages = images
+        dataSource = images
         collectionView.reloadData()
     }
 }
