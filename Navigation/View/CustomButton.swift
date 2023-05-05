@@ -9,9 +9,9 @@ import UIKit
 
 class CustomButton : UIButton {
     
+    //кастомный инициализатор с параметрами кнопки
     var actionButton : () -> Void = {}
     
-    //кастомный инициализатор с параметрами кнопки
     init(title: String, titleColor: UIColor = .white, backgroundColor : UIColor = .systemBlue, cornerRadius : CGFloat = 10) {
         super.init(frame: .zero)
         self.setTitle(title, for: .normal)

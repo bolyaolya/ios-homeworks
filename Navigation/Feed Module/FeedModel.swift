@@ -9,7 +9,7 @@ import UIKit
 
 class FeedModel {
     
-    let password : String = "secretWord"
+    private let password : String = "secretWord"
     
     func check(word: String) -> Bool {
         password == word ? true : false 

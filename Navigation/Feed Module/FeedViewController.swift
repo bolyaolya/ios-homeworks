@@ -83,7 +83,7 @@ class FeedViewController: UIViewController {
             let input = self.textField.text ?? ""
             let result : Bool = FeedModel().check(word: input)
             
-            if result == true {
+            if result {
                 self.resultBtn.backgroundColor = .green
                 self.resultBtn.setTitle("True", for: .normal)
             } else {
