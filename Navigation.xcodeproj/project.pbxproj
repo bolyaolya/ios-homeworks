@@ -31,6 +31,8 @@
 		0C1F09A029EEFD5D003C483C /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1F098B29EEFD5D003C483C /* StorageService.framework */; };
 		0C1F09A129EEFD5D003C483C /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1F098B29EEFD5D003C483C /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0C1F09AA29EEFD7F003C483C /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F09A929EEFD7F003C483C /* Post.swift */; };
+		0C3DECCF2A0509E30043BF90 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3DECCE2A0509E30043BF90 /* CustomButton.swift */; };
+		0C3DECD12A050F3E0043BF90 /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3DECD02A050F3E0043BF90 /* FeedModel.swift */; };
 		0C405B7F29F2C63300F4FF61 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0C405B7E29F2C63300F4FF61 /* SnapKit */; };
 		0C405B8529F2C67B00F4FF61 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0C405B8429F2C67B00F4FF61 /* SnapKit */; };
 		0C4D821F2A0280EC0090D4E8 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4D821E2A0280EC0090D4E8 /* Checker.swift */; };
@@ -88,6 +90,8 @@
 		0C1F098D29EEFD5D003C483C /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
 		0C1F098E29EEFD5D003C483C /* StorageService.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = StorageService.docc; sourceTree = "<group>"; };
 		0C1F09A929EEFD7F003C483C /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		0C3DECCE2A0509E30043BF90 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		0C3DECD02A050F3E0043BF90 /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
 		0C4D821E2A0280EC0090D4E8 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
 		0C4D82202A0290520090D4E8 /* LoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -179,6 +183,7 @@
 		01C137CC28A926DC003B5405 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				0C3DECCD2A0509D20043BF90 /* View */,
 				01EE9F2728AACB5000D96A3D /* Application */,
 				01EE9F2928AAD34600D96A3D /* TabBar Module */,
 				01EE9F2C28AAD7CD00D96A3D /* Feed Module */,
@@ -214,6 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				01EE9F2D28AAD7E300D96A3D /* FeedViewController.swift */,
+				0C3DECD02A050F3E0043BF90 /* FeedModel.swift */,
 			);
 			path = "Feed Module";
 			sourceTree = "<group>";
@@ -234,6 +240,14 @@
 				0C1F09A929EEFD7F003C483C /* Post.swift */,
 			);
 			path = StorageService;
+			sourceTree = "<group>";
+		};
+		0C3DECCD2A0509D20043BF90 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0C3DECCE2A0509E30043BF90 /* CustomButton.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		0C405B8329F2C67B00F4FF61 /* Frameworks */ = {
@@ -367,11 +381,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				013FA36B28AD263100A1FB54 /* PostViewController.swift in Sources */,
+				0C3DECCF2A0509E30043BF90 /* CustomButton.swift in Sources */,
 				0167ED352967050400664CAB /* ProfilePostModel.swift in Sources */,
 				0167ED3729670D3000664CAB /* PostTableViewCell.swift in Sources */,
 				01EE9F2E28AAD7E300D96A3D /* FeedViewController.swift in Sources */,
 				015EC8C828D244AF0057F34D /* LogInViewController.swift in Sources */,
 				012DDDCF28B3E18900040DD5 /* InfoViewController.swift in Sources */,
+				0C3DECD12A050F3E0043BF90 /* FeedModel.swift in Sources */,
 				01EE9F2B28AAD36E00D96A3D /* TabBarController.swift in Sources */,
 				014C732028BE1AB900C284A2 /* ProfileViewController.swift in Sources */,
 				0C4D821F2A0280EC0090D4E8 /* Checker.swift in Sources */,

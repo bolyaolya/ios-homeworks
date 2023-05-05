@@ -14,76 +14,85 @@ class FeedViewController: UIViewController {
         let title: String
     }
     
+    private lazy var btn1 = CustomButton(title: "First button")
+    private lazy var btn2 = CustomButton(title: "Second button")
     
-    let firstButton : UIButton = {
-        let but1 = UIButton()
-        but1.setTitle("One", for: .normal)
-        but1.backgroundColor = .systemBlue
-        but1.layer.cornerRadius = 10
-        but1.translatesAutoresizingMaskIntoConstraints = false
-        but1.addTarget(FeedViewController.self, action: #selector(tap), for: .touchUpInside)
-        return but1
+    private lazy var textField : UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Set your password"
+        textField.text = "secretWord"
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: textField.frame.height))
+        textField.leftViewMode = .always
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
     }()
     
-    let secondButton : UIButton = {
-        let but2 = UIButton()
-        but2.setTitle("Two", for: .normal)
-        but2.backgroundColor = .systemBlue
-        but2.layer.cornerRadius = 10
-        but2.translatesAutoresizingMaskIntoConstraints = false
-        but2.addTarget(FeedViewController.self, action: #selector(tap), for: .touchUpInside)
-        return but2
-    }()
+    private lazy var checkGuessButton = CustomButton(title: "check guess button!")
+    private lazy var resultBtn = CustomButton(title: "check your result!")
     
     var stackView : UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .center
         stackView.distribution = .equalCentering
-        stackView.backgroundColor = .systemBlue
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = 10.0
         return stackView
     }()
     
-    
     let postTitle: Post = .init(title: "First post")
     
-//    let button: UIButton = {
-//        let button = UIButton()
-//        button.setTitle("Show post", for: .normal)
-//        button.setTitleColor(UIColor.black, for: .normal)
-//        button.backgroundColor = UIColor(red: 0.83, green: 0.77, blue: 0.98, alpha: 1.00)
-//        button.layer.cornerRadius = 14
-//        return button
-//    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
         view.addSubview(stackView)
-        stackView.addArrangedSubview(firstButton)
-        stackView.addArrangedSubview(secondButton)
+        stackView.addArrangedSubview(btn1)
+        stackView.addArrangedSubview(btn2)
+        stackView.addArrangedSubview(textField)
+        stackView.addArrangedSubview(checkGuessButton)
+        stackView.addArrangedSubview(resultBtn)
         
+        addBtnActions()
         
         NSLayoutConstraint.activate([
             stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             
-            firstButton.heightAnchor.constraint(equalToConstant: 30),
-            firstButton.widthAnchor.constraint(equalToConstant: 50),
-//
-            secondButton.topAnchor.constraint(equalTo: firstButton.bottomAnchor, constant: 20),
-            secondButton.heightAnchor.constraint(equalToConstant: 30),
-            secondButton.widthAnchor.constraint(equalToConstant: 50)
-            
+            textField.topAnchor.constraint(equalTo: btn2.bottomAnchor, constant: 30),
+            textField.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 40),
+            textField.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -40),
+            textField.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
     
-    @objc func tap() {
-        let post = PostViewController()
-        navigationController?.pushViewController(post, animated: true)
+    func addBtnActions() {
+        
+        //добавляем переход по тапу
+        btn1.actionButton = {
+            let post = PostViewController()
+            self.navigationController?.pushViewController(post, animated: true)
+        }
+        
+        //задаем 2-ой кнопке то же действие
+        btn2.actionButton = btn1.actionButton
+        
+        //задаем проверку слова и меняем цвет кнопки в зависимости от результата
+        checkGuessButton.actionButton = {
+            let input = self.textField.text ?? ""
+            let result : Bool = FeedModel().check(word: input)
+            
+            if result {
+                self.resultBtn.backgroundColor = .green
+                self.resultBtn.setTitle("True", for: .normal)
+            } else {
+                self.resultBtn.backgroundColor = .red
+                self.resultBtn.setTitle("False", for: .normal)
+            }
+            
+        }
     }
+    
 }
 
