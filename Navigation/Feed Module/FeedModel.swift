@@ -7,11 +7,8 @@
 
 import UIKit
 
-class FeedModel {
+struct FeedModel {
     
-    private let password : String = "secretWord"
-    
-    func check(word: String) -> Bool {
-        password == word ? true : false 
-    }
+    var password = "secretWord"
+
 }

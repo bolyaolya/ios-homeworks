@@ -13,7 +13,6 @@ class TabBarController: UITabBarController {
     //Создаем 2 навигационных контроллера
     var firstTabNavigationController : UINavigationController!
     var secondTabNavigationController : UINavigationController!
-    var thirdTabNavigationController : UINavigationController!
     
     //жизненный цикл
     
@@ -25,11 +24,15 @@ class TabBarController: UITabBarController {
     //методы
     
     private func setupUI() {
-        //Объявляем стартовый экран и создаем навигационные контроллеры
-        firstTabNavigationController = UINavigationController.init(rootViewController: FeedViewController())
-        secondTabNavigationController = UINavigationController.init(rootViewController: LogInViewController())
-        thirdTabNavigationController = UINavigationController.init(rootViewController: ProfileViewController())
-        secondTabNavigationController.navigationBar.isHidden = false
+        
+        let loginVC = LogInViewController()
+        let profileVC = ProfileViewController()
+        let feedVC = FeedViewController()
+        
+        firstTabNavigationController = UINavigationController.init(rootViewController: feedVC)
+        secondTabNavigationController = UINavigationController.init(rootViewController: profileVC)
+        
+        loginVC.loginDelegate = MyLoginFactory().makeLoginInspector()
         
         //Добавляем навигационные контроллеры в контейнер таббара
         self.viewControllers = [firstTabNavigationController, secondTabNavigationController]

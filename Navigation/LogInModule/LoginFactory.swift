@@ -2,17 +2,11 @@
 //  LoginFactory.swift
 //  Navigation
 //
-//  Created by Ольга Бойко on 03.05.2023.
+//  Created by Ольга Бойко on 10.05.2023.
 //
 
-import UIKit
+import Foundation
 
 protocol LoginFactory {
     func makeLoginInspector() -> LoginInspector
-}
-
-struct MyLoginFactory : LoginFactory {
-    func makeLoginInspector() -> LoginInspector {
-        return LoginInspector()
-    }
 }
