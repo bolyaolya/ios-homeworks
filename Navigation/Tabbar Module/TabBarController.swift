@@ -25,14 +25,12 @@ class TabBarController: UITabBarController {
     
     private func setupUI() {
         
-        let loginVC = LogInViewController()
+//        let loginVC = LogInViewController()
         let profileVC = ProfileViewController()
         let feedVC = FeedViewController()
         
         firstTabNavigationController = UINavigationController.init(rootViewController: feedVC)
         secondTabNavigationController = UINavigationController.init(rootViewController: profileVC)
-        
-        loginVC.loginDelegate = MyLoginFactory().makeLoginInspector()
         
         //Добавляем навигационные контроллеры в контейнер таббара
         self.viewControllers = [firstTabNavigationController, secondTabNavigationController]

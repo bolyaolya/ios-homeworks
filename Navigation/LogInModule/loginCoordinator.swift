@@ -29,6 +29,7 @@ class loginCoordinator : LoginCoordinatorProtocol {
     
     func showLoginVC() {
         let loginVC = LogInViewController()
+        loginVC.loginDelegate = MyLoginFactory().makeLoginInspector()
         navigationController.pushViewController(loginVC, animated: true)
     }
 }

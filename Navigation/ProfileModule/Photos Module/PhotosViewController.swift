@@ -21,9 +21,10 @@ class PhotosViewController : UIViewController {
         static let inset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
     }
     
-    var imagePublisher = ImagePublisherFacade()
-    var dataSource = [UIImage]()
-//    var Massiveimages = [UIImage]()
+    let imagePublisher = ImagePublisherFacade()
+         private var dataSource = photos.makePhotoArray()
+         private var imagesArray = [UIImage]()
+         private var localImages = [UIImage]()
     
     private lazy var layout : UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
@@ -45,7 +46,7 @@ class PhotosViewController : UIViewController {
     
     struct photos {
         let image : String
-        static func dataSource() -> [photos] {
+        static func makePhotoArray() -> [photos] {
             return [
                 photos(image: "1"),
                 photos(image: "2"),
@@ -78,8 +79,7 @@ class PhotosViewController : UIViewController {
         setupView()
         navigationController?.navigationBar.isHidden = false
         
-        imagePublisher.subscribe(self)
-        imagePublisher.addImagesWithTimer(time: 3.0, repeat: 20)
+        setupImages()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -106,17 +106,30 @@ class PhotosViewController : UIViewController {
         ])
     }
     
+    private func setupImages() {
+             dataSource.forEach {
+                 guard let image = UIImage(named: $0.image) else { return }
+                 localImages.append(image)
+             }
+             imagePublisher.subscribe(self)
+             imagePublisher.addImagesWithTimer(time: 1.0, repeat: 20, userImages: localImages)
+         }
+    
     private func setupNavBarTitle() {
         navigationItem.title = "Photo Gallery"
     }
 }
 
-extension PhotosViewController : UICollectionViewDataSource ,UICollectionViewDelegateFlowLayout {
-   
-    //количество элементов
+extension PhotosViewController : UICollectionViewDataSource ,UICollectionViewDelegateFlowLayout, ImageLibrarySubscriber {
+
+     func receive(images: [UIImage]) {
+         imagesArray = images
+         collectionView.reloadData()
+     }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photos.dataSource().count
-    }
+             return imagesArray.count
+         }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.photosCellID, for: indexPath) as? PhotosCollectionViewCell
@@ -125,9 +138,9 @@ extension PhotosViewController : UICollectionViewDataSource ,UICollectionViewDel
             return cell
         }
         
-        let photos = photos.dataSource()[indexPath.row]
-        cell.imageView.image = UIImage(named: photos.image)
-        return cell
+        let image = imagesArray[indexPath.row]
+            cell.imageView.image = image
+            return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -141,13 +154,5 @@ extension PhotosViewController : UICollectionViewDataSource ,UICollectionViewDel
         let width = collectionView.frame.width - (Constants.numberOfColumns - 1) * interitemSpacing - sectionInset.left - sectionInset.right
         let itemWidth = floor(width / Constants.numberOfColumns)
         return CGSize(width: itemWidth, height: itemWidth)
-    }
-    
-}
-extension PhotosViewController : ImageLibrarySubscriber {
-    
-    func receive(images: [UIImage]) {
-        dataSource = images
-        collectionView.reloadData()
     }
 }

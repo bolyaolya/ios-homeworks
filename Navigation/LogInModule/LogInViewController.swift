@@ -200,13 +200,13 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
         
         if loginDelegate?.check(login: checkingEmail ?? "", password: checkingPassword ?? "") == true {
             let profileViewController = ProfileViewController()
+            let tabBarController = TabBarController()
                     profileViewController.user = userLogin.user
-                    navigationController?.pushViewController(profileViewController, animated: true)
+                    navigationController?.pushViewController(tabBarController, animated: true)
                 } else {
                     self.present(alertMessage, animated: true, completion: nil)
         }
     }
-    
     
     func setupConstraints() {
         NSLayoutConstraint.activate(

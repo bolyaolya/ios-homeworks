@@ -29,7 +29,8 @@ class TabBarCoordinator : Coordinator {
     }
     
     func showTabBar() {
-        navigationController.pushViewController(TabBarController(), animated: true)
+        let tabBar = TabBarController()
+        navigationController.pushViewController(tabBar, animated: true)
     }
     
     
