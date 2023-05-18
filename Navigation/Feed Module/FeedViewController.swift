@@ -9,13 +9,11 @@ import UIKit
 
 class FeedViewController: UIViewController {
     
-    var viewModel = FeedViewModel()
-    let feedModel = FeedModel()
-//    var answerText = Dynamic("")
-    
     struct Post {
         let title: String
     }
+    
+    //MARK: свойства
     
     private lazy var btn1 = CustomButton(title: "First button")
     private lazy var btn2 = CustomButton(title: "Second button")
@@ -51,6 +49,7 @@ class FeedViewController: UIViewController {
     
     let postTitle: Post = .init(title: "First post")
     
+    //MARK: жизненный цикл
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +57,8 @@ class FeedViewController: UIViewController {
         
         setupView()
     }
+    
+    //MARK: методы
     
     private func setupView() {
         
@@ -70,7 +71,7 @@ class FeedViewController: UIViewController {
         stackView.addArrangedSubview(answerText)
         
         addBtnActions()
-        addTargets(password: "")
+        addTargets()
         
         setupConstraints()
     }
@@ -91,9 +92,12 @@ class FeedViewController: UIViewController {
         ])
     }
     
-    private func addTargets(password : String) {
+    //добавляем действие по тапу - проверка кодового слова
+    private func addTargets() {
         checkGuessButton.actionButton = {
-            if self.textField.text == self.feedModel.password {
+            let input = self.textField.text ?? ""
+            let result : Bool = FeedModel().check(yourWord: input)
+            if result == true {
                 self.answerText.text = "You are right!"
                 self.answerText.textColor = .green
             } else {
@@ -101,14 +105,6 @@ class FeedViewController: UIViewController {
                 self.answerText.textColor = .red
             }
         }
-    }
-    
-    func makeViewModel() {
-        viewModel.answerText.make({ ( answerText ) in
-            DispatchQueue.main.async {
-                self.answerText.text = answerText
-            }
-        })
     }
     
     func addBtnActions() {
@@ -121,22 +117,6 @@ class FeedViewController: UIViewController {
         
         //задаем 2-ой кнопке то же действие
         btn2.actionButton = btn1.actionButton
-        
-        //задаем проверку слова и меняем цвет кнопки в зависимости от результата
-//        checkGuessButton.actionButton = {
-//            let input = self.textField.text ?? ""
-//            let result : Bool = FeedModel().check(word: input)
-//            
-//            if result {
-//                self.resultBtn.backgroundColor = .green
-//                self.resultBtn.setTitle("True", for: .normal)
-//            } else {
-//                self.resultBtn.backgroundColor = .red
-//                self.resultBtn.setTitle("False", for: .normal)
-//            }
-//            
-//        }
     }
-    
 }
 

@@ -43,7 +43,6 @@
 		0CEE3BCA2A0B897500B48B08 /* loginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEE3BC92A0B897500B48B08 /* loginCoordinator.swift */; };
 		0CEE3BCC2A0B8AE700B48B08 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEE3BCB2A0B8AE700B48B08 /* TabBarCoordinator.swift */; };
 		0CEE3BCE2A0B8D8800B48B08 /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEE3BCD2A0B8D8800B48B08 /* FeedViewModel.swift */; };
-		0CEE3BD02A0B8DD600B48B08 /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEE3BCF2A0B8DD600B48B08 /* Dynamic.swift */; };
 		0CEE3BD22A0B944100B48B08 /* LoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEE3BD12A0B944100B48B08 /* LoginFactory.swift */; };
 		0CEE3BD42A0B947E00B48B08 /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEE3BD32A0B947E00B48B08 /* LoginInspector.swift */; };
 		0CEE3BD62A0B94FA00B48B08 /* LoginViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEE3BD52A0B94FA00B48B08 /* LoginViewControllerDelegate.swift */; };
@@ -108,7 +107,6 @@
 		0CEE3BC92A0B897500B48B08 /* loginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginCoordinator.swift; sourceTree = "<group>"; };
 		0CEE3BCB2A0B8AE700B48B08 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TabBarCoordinator.swift; path = "Navigation/Tabbar Module/TabBarCoordinator.swift"; sourceTree = SOURCE_ROOT; };
 		0CEE3BCD2A0B8D8800B48B08 /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
-		0CEE3BCF2A0B8DD600B48B08 /* Dynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dynamic.swift; sourceTree = "<group>"; };
 		0CEE3BD12A0B944100B48B08 /* LoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFactory.swift; sourceTree = "<group>"; };
 		0CEE3BD32A0B947E00B48B08 /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
 		0CEE3BD52A0B94FA00B48B08 /* LoginViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewControllerDelegate.swift; sourceTree = "<group>"; };
@@ -245,7 +243,6 @@
 				01EE9F2D28AAD7E300D96A3D /* FeedViewController.swift */,
 				0C3DECD02A050F3E0043BF90 /* FeedModel.swift */,
 				0CEE3BCD2A0B8D8800B48B08 /* FeedViewModel.swift */,
-				0CEE3BCF2A0B8DD600B48B08 /* Dynamic.swift */,
 			);
 			path = "Feed Module";
 			sourceTree = "<group>";
@@ -429,7 +426,6 @@
 				012DDDCF28B3E18900040DD5 /* InfoViewController.swift in Sources */,
 				0C3DECD12A050F3E0043BF90 /* FeedModel.swift in Sources */,
 				01EE9F2B28AAD36E00D96A3D /* TabBarController.swift in Sources */,
-				0CEE3BD02A0B8DD600B48B08 /* Dynamic.swift in Sources */,
 				0CEE3BD22A0B944100B48B08 /* LoginFactory.swift in Sources */,
 				0CEE3BD62A0B94FA00B48B08 /* LoginViewControllerDelegate.swift in Sources */,
 				0CEE3BCA2A0B897500B48B08 /* loginCoordinator.swift in Sources */,
