@@ -10,6 +10,8 @@ import UIKit
 class FeedViewController: UIViewController {
     
     var viewModel = FeedViewModel()
+    let feedModel = FeedModel()
+//    var answerText = Dynamic("")
     
     struct Post {
         let title: String
@@ -68,6 +70,7 @@ class FeedViewController: UIViewController {
         stackView.addArrangedSubview(answerText)
         
         addBtnActions()
+        addTargets(password: "")
         
         setupConstraints()
     }
@@ -88,9 +91,15 @@ class FeedViewController: UIViewController {
         ])
     }
     
-    private func addTargets() {
+    private func addTargets(password : String) {
         checkGuessButton.actionButton = {
-            self.checkPassword()
+            if self.textField.text == self.feedModel.password {
+                self.answerText.text = "You are right!"
+                self.answerText.textColor = .green
+            } else {
+                self.answerText.text = "You are wrong :("
+                self.answerText.textColor = .red
+            }
         }
     }
     
@@ -100,16 +109,6 @@ class FeedViewController: UIViewController {
                 self.answerText.text = answerText
             }
         })
-    }
-    
-    func checkPassword() {
-        if viewModel.checkPassword(password: textField.text ?? "") {
-            print("You are right!")
-            answerText.textColor = .green
-        } else {
-            print("You are wrong :(")
-            answerText.textColor = .red
-        }
     }
     
     func addBtnActions() {
