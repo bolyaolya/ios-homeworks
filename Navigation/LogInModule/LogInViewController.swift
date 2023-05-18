@@ -17,7 +17,9 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
     //уведомление о неправильных данных для входа
     let alertMessage = UIAlertController(title: "Ошибка", message: "Неверный логин или пароль", preferredStyle: .alert)
     
-    //свойства
+    let bruteForce = BruteForce()
+    
+    //MARK: свойства
     
     lazy var scrollView: UIScrollView = {
        let scrollView = UIScrollView()
@@ -25,7 +27,7 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
         return scrollView
     }()
     
-    let stackView : UIStackView = {
+    private lazy var stackView : UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .equalCentering
@@ -38,7 +40,7 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
         return stackView
     }()
     
-    lazy var logo : UIImageView = {
+    private lazy var logo : UIImageView = {
         let logo = UIImageView()
         logo.image = UIImage(named: "vkLogo")
         logo.clipsToBounds = true
@@ -46,19 +48,21 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
         return logo
     }()
     
-    lazy var button : UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor.init(patternImage: UIImage(named: "blue_pixel")!)
-        button.setTitle("Log In", for: .normal)
-        button.layer.cornerRadius = 10
-        button.titleLabel?.font = .systemFont(ofSize: 16)
-        button.clipsToBounds = true
-        button.addTarget(self, action: #selector(login), for: .touchUpInside)
-        return button
+    private lazy var loginButton : CustomButton = CustomButton(title: "Log In",
+                                                               backgroundColor: UIColor.init(patternImage: UIImage(named: "blue_pixel")!),
+                                                               cornerRadius: 10)
+    
+    private lazy var guessPasswordButton : CustomButton = CustomButton(title: "Подобрать пароль",
+                                                                       backgroundColor: .systemBlue,
+                                                                       cornerRadius: 10)
+    
+    private lazy var activityIndicator : UIActivityIndicatorView = {
+        let actIndicator = UIActivityIndicatorView(style: .medium)
+        actIndicator.translatesAutoresizingMaskIntoConstraints = false
+        return actIndicator
     }()
     
-    lazy var email : UITextField = {
+    private lazy var email : UITextField = {
         let email = UITextField()
         email.textColor = .black
         email.font = .systemFont(ofSize: 16, weight: .regular)
@@ -75,7 +79,7 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
         return email
     }()
     
-    lazy var password : UITextField = {
+     lazy var password : UITextField = {
         let password = UITextField()
         password.textColor = .black
         password.font = .systemFont(ofSize: 16, weight: .regular)
@@ -91,14 +95,14 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
         return password
     }()
     
-    lazy var horizontalLine: UIView = {
+    private lazy var horizontalLine: UIView = {
         let horizontalLine = UIView()
         horizontalLine.backgroundColor = .lightGray
         horizontalLine.translatesAutoresizingMaskIntoConstraints = false
         return horizontalLine
     }()
     
-    //жизненный цикл
+    //MARK: жизненный цикл
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,10 +112,12 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
         layout()
         setupConstraints()
         
+        addBtnActions()
+        
         alertMessage.addAction(UIAlertAction(title: "Закрыть", style: .cancel))
     }
     
-    //методы
+    //MARK: методы
     
     func layout() {
         setupGestures()
@@ -123,8 +129,9 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
         stackView.addArrangedSubview(password)
         scrollView.addSubview(stackView)
         
-        scrollView.addSubview(button)
-        
+        scrollView.addSubview(loginButton)
+        scrollView.addSubview(guessPasswordButton)
+        scrollView.addSubview(activityIndicator)
     }
     
     //обработка скрытия клавиатуры
@@ -158,7 +165,7 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
                 let keyboardHeight = keyboardRectangle.height
 
                 // считаем нужную точку и проверяем перекрывает ли клавиатура кнопку
-                let loginButtonBottomPointY = self.button.frame.origin.y + button.frame.height
+                let loginButtonBottomPointY = self.loginButton.frame.origin.y + loginButton.frame.height
 
                 let keyboardOriginY = self.view.frame.height - keyboardHeight
 
@@ -186,29 +193,76 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
         }
     // ------------------------
     
-    @objc func login() {
+    private func addBtnActions() {
         
-        //проверяем что ввели в поле mail
-        let checkingEmail = email.text
-        let checkingPassword = password.text
+        loginButton.actionButton = {
+            
+            //проверяем что ввели в поле mail
+            let checkingEmail = self.email.text
+            let checkingPassword = self.password.text
+            
+#if DEBUG
+            let userLogin = TestUserService(user: User(login: "test", fullName: "testovye testy", avatar: UIImage(named: "hypno") ?? UIImage(), status: "I'm testing something"))
+#else
+            let userLogin = CurrentUserService(user: User(login: "olyabolya", fullName: "Olya Boyko", avatar: UIImage(named: "avatar") ?? UIImage(), status: "I'm just using this app"))
+#endif
+            
+            if self.loginDelegate?.check(login: checkingEmail ?? "", password: checkingPassword ?? "") == true {
+                let profileViewController = ProfileViewController()
+                let tabBarController = TabBarController()
+                profileViewController.user = userLogin.user
+                self.navigationController?.pushViewController(tabBarController, animated: true)
+            } else {
+                self.present(self.alertMessage, animated: true, completion: nil)
+            }
+        }
         
-        #if DEBUG
-        let userLogin = TestUserService(user: User(login: "test", fullName: "testovye testy", avatar: UIImage(named: "hypno") ?? UIImage(), status: "I'm testing something"))
-        #else
-        let userLogin = CurrentUserService(user: User(login: "olyabolya", fullName: "Olya Boyko", avatar: UIImage(named: "avatar") ?? UIImage(), status: "I'm just using this app"))
-        #endif
-        
-        if loginDelegate?.check(login: checkingEmail ?? "", password: checkingPassword ?? "") == true {
-            let profileViewController = ProfileViewController()
-            let tabBarController = TabBarController()
-                    profileViewController.user = userLogin.user
-                    navigationController?.pushViewController(tabBarController, animated: true)
-                } else {
-                    self.present(alertMessage, animated: true, completion: nil)
+        guessPasswordButton.actionButton = {
+            
+            //задаем изменения в поле пароль, кнопку и стартуем анимацию загрузки
+            self.password.text = nil
+            self.guessPasswordButton.isEnabled = false
+            self.guessPasswordButton.backgroundColor = .systemGray
+            
+            
+//            var password : String {
+//                let letters  = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+//                return String((0..<3).map{ _ in letters.randomElement()!})
+//            }
+            
+            //func
+            func random(length : Int = 20) -> String {
+                let letters = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                var correctPassword : String = ""
+            
+                for _ in 0..<length {
+                    let randomValue = arc4random_uniform(UInt32(letters.count))
+                    correctPassword += "\(letters[letters.index(letters.startIndex, offsetBy: Int(randomValue))])"
+                }
+                return correctPassword
+            }
+            
+            let correctPassword = random(length: 4)
+            print("Generated string - \(correctPassword)")
+            
+            let queue = DispatchQueue(label: "guessPasswordQueue", qos: .userInitiated)
+            let workItem = DispatchWorkItem { [self] in
+                bruteForce.bruteForce(passwordToUnlock: correctPassword)
+            }
+            
+            self.activityIndicator.startAnimating()
+            
+            queue.async(execute: workItem)
+            
+            workItem.notify(queue: .main) {
+                self.password.isSecureTextEntry = false
+                self.password.text = correctPassword
+                self.activityIndicator.stopAnimating()
+            }
         }
     }
     
-    func setupConstraints() {
+    private func setupConstraints() {
         NSLayoutConstraint.activate(
             [scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
              scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -239,14 +293,20 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
              horizontalLine.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
              horizontalLine.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
 
-             button.heightAnchor.constraint(equalToConstant: 50),
-             button.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
-             button.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
-             button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-             button.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 16),
-   //          self.button.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+             loginButton.heightAnchor.constraint(equalToConstant: 50),
+             loginButton.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
+             loginButton.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
+             loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+             loginButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 16),
              
+             guessPasswordButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 16),
+             guessPasswordButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+             guessPasswordButton.heightAnchor.constraint(equalToConstant: 50),
+             guessPasswordButton.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 48),
+             guessPasswordButton.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -48),
              
+             activityIndicator.centerYAnchor.constraint(equalTo: password.centerYAnchor),
+             activityIndicator.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -32)
         ])
     }
 }
@@ -259,5 +319,18 @@ extension LogInViewController: UITextViewDelegate {
             self.forceHidingKeyboard()
         }
         return true
+    }
+}
+
+extension String {
+        func random(length : Int = 20) -> String {
+        let letters = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        var correctPassword : String = ""
+        
+        for _ in 0..<length {
+            let randomValue = arc4random_uniform(UInt32(letters.count))
+            correctPassword += "\(letters[letters.index(letters.startIndex, offsetBy: Int(randomValue))])"
+        }
+        return correctPassword
     }
 }
