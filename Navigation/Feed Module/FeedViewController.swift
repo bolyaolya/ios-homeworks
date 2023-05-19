@@ -13,8 +13,6 @@ class FeedViewController: UIViewController {
         let title: String
     }
     
-    let checkFunc = FeedViewModel()
-    
     //MARK: свойства
     
     private lazy var btn1 = CustomButton(title: "First button")
@@ -97,7 +95,20 @@ class FeedViewController: UIViewController {
     //добавляем действие по тапу - проверка кодового слова
     func addTargets() {
         checkGuessButton.actionButton = {
-            self.checkFunc.checkingPassword()
+            
+            func checkingPassword() {
+                
+                let input = self.textField.text ?? ""
+                let result : Bool = FeedViewModel().check(yourWord: input)
+                
+                if result == true {
+                    self.answerText.text = "You are right!"
+                    self.answerText.textColor = .green
+                } else {
+                    self.answerText.text = "You are wrong :("
+                    self.answerText.textColor = .red
+                }
+            }
         }
     }
     
