@@ -10,31 +10,31 @@ import UIKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
+//    var window: UIWindow?
     
     //Создаем таббар контроллер
-    let tabBarController = UITabBarController()
-    let feedViewController = FeedViewController()
-    let profileViewController = ProfileViewController()
+//    let tabBarController = UITabBarController()
+//    let feedViewController = FeedViewController()
+//    let profileViewController = ProfileViewController()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        let feed = UINavigationController(rootViewController: feedViewController)
-        let profile = UINavigationController(rootViewController: profileViewController)
+//        let feed = UINavigationController(rootViewController: feedViewController)
+//        let profile = UINavigationController(rootViewController: profileViewController)
         
-        loginDelegate = MyLoginFactory().makeLoginInspector()
+//        loginDelegate = MyLoginFactory().makeLoginInspector()
 //
 //        let factory = MyLoginFactory()
 //        let loginInspector = factory.makeLoginInspector()
 //        let loginVC = LogInViewController()
 //        loginVC.loginDelegate = loginInspector
                 
-        tabBarController.viewControllers = [feed, profile]
-        feed.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName:"newspaper"), tag: 0)
-        profile.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName:"person"), tag: 1)
-        
-        
+//        tabBarController.viewControllers = [feed, profile]
+//        feed.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName:"newspaper"), tag: 0)
+//        profile.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName:"person"), tag: 1)
+//
+//
         return true
     }
 

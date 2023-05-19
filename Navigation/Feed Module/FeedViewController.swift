@@ -6,13 +6,14 @@
 //
 
 import UIKit
-import StorageService
 
 class FeedViewController: UIViewController {
     
     struct Post {
         let title: String
     }
+    
+    //MARK: свойства
     
     private lazy var btn1 = CustomButton(title: "First button")
     private lazy var btn2 = CustomButton(title: "Second button")
@@ -40,12 +41,26 @@ class FeedViewController: UIViewController {
         return stackView
     }()
     
+    var answerText : UILabel = {
+        let answerText = UILabel()
+        answerText.translatesAutoresizingMaskIntoConstraints = false
+        return answerText
+    }()
+    
     let postTitle: Post = .init(title: "First post")
     
+    //MARK: жизненный цикл
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
+        setupView()
+    }
+    
+    //MARK: методы
+    
+    private func setupView() {
         
         view.addSubview(stackView)
         stackView.addArrangedSubview(btn1)
@@ -53,8 +68,15 @@ class FeedViewController: UIViewController {
         stackView.addArrangedSubview(textField)
         stackView.addArrangedSubview(checkGuessButton)
         stackView.addArrangedSubview(resultBtn)
+        stackView.addArrangedSubview(answerText)
         
         addBtnActions()
+        addTargets()
+        
+        setupConstraints()
+    }
+    
+    private func setupConstraints() {
         
         NSLayoutConstraint.activate([
             stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -63,8 +85,26 @@ class FeedViewController: UIViewController {
             textField.topAnchor.constraint(equalTo: btn2.bottomAnchor, constant: 30),
             textField.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 40),
             textField.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -40),
-            textField.heightAnchor.constraint(equalToConstant: 30)
+            textField.heightAnchor.constraint(equalToConstant: 30),
+            
+            answerText.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 60),
+            answerText.centerXAnchor.constraint(equalTo: stackView.centerXAnchor)
         ])
+    }
+    
+    //добавляем действие по тапу - проверка кодового слова
+    private func addTargets() {
+        checkGuessButton.actionButton = {
+            let input = self.textField.text ?? ""
+            let result : Bool = FeedModel().check(yourWord: input)
+            if result == true {
+                self.answerText.text = "You are right!"
+                self.answerText.textColor = .green
+            } else {
+                self.answerText.text = "You are wrong :("
+                self.answerText.textColor = .red
+            }
+        }
     }
     
     func addBtnActions() {
@@ -77,22 +117,6 @@ class FeedViewController: UIViewController {
         
         //задаем 2-ой кнопке то же действие
         btn2.actionButton = btn1.actionButton
-        
-        //задаем проверку слова и меняем цвет кнопки в зависимости от результата
-        checkGuessButton.actionButton = {
-            let input = self.textField.text ?? ""
-            let result : Bool = FeedModel().check(word: input)
-            
-            if result {
-                self.resultBtn.backgroundColor = .green
-                self.resultBtn.setTitle("True", for: .normal)
-            } else {
-                self.resultBtn.backgroundColor = .red
-                self.resultBtn.setTitle("False", for: .normal)
-            }
-            
-        }
     }
-    
 }
 

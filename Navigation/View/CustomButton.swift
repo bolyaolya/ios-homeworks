@@ -9,15 +9,17 @@ import UIKit
 
 class CustomButton : UIButton {
     
-    //кастомный инициализатор с параметрами кнопки
     var actionButton : () -> Void = {}
     
-    init(title: String, titleColor: UIColor = .white, backgroundColor : UIColor = .systemBlue, cornerRadius : CGFloat = 10) {
+    //кастомный инициализатор с параметрами кнопки
+    init(title: String, backgroundColor : UIColor = .systemBlue, titleColor: UIColor = .white, cornerRadius : CGFloat = 10, borderColor : CGColor = UIColor.white.cgColor, borderWidth : CGFloat = 3) {
         super.init(frame: .zero)
         self.setTitle(title, for: .normal)
         self.setTitleColor(UIColor.white, for: .normal)
         self.backgroundColor = backgroundColor
         self.layer.cornerRadius = cornerRadius
+        self.layer.borderColor = borderColor
+        self.layer.borderWidth = borderWidth
         self.translatesAutoresizingMaskIntoConstraints = false
         self.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }

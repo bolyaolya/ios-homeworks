@@ -26,6 +26,7 @@ protocol UserService {
 }
 
 class CurrentUserService : UserService {
+    
     let user : User
     
     func checkLogin(login: String) -> User? {
