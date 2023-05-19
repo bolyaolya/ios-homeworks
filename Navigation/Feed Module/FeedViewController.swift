@@ -28,10 +28,9 @@ class FeedViewController: UIViewController {
         return textField
     }()
     
-    private lazy var checkGuessButton = CustomButton(title: "check guess button!")
-    private lazy var resultBtn = CustomButton(title: "check your result!")
+    private lazy var checkGuessButton : CustomButton = CustomButton(title: "check your guess!")
     
-    var stackView : UIStackView = {
+    lazy var stackView : UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .center
@@ -41,7 +40,7 @@ class FeedViewController: UIViewController {
         return stackView
     }()
     
-    var answerText : UILabel = {
+    lazy var answerText : UILabel = {
         let answerText = UILabel()
         answerText.translatesAutoresizingMaskIntoConstraints = false
         return answerText
@@ -61,13 +60,11 @@ class FeedViewController: UIViewController {
     //MARK: методы
     
     private func setupView() {
-        
         view.addSubview(stackView)
         stackView.addArrangedSubview(btn1)
         stackView.addArrangedSubview(btn2)
         stackView.addArrangedSubview(textField)
         stackView.addArrangedSubview(checkGuessButton)
-        stackView.addArrangedSubview(resultBtn)
         stackView.addArrangedSubview(answerText)
         
         addBtnActions()
@@ -76,8 +73,34 @@ class FeedViewController: UIViewController {
         setupConstraints()
     }
     
-    private func setupConstraints() {
+    //добавляем действие по тапу - проверка кодового слова
+    private func addTargets() {
+        checkGuessButton.actionButton = {
+                let input = self.textField.text ?? ""
+                let result : Bool = FeedViewModel().check(yourWord: input)
+                
+                if result == true {
+                    self.answerText.text = "You are right!"
+                    self.answerText.textColor = .green
+                } else {
+                    self.answerText.text = "You are wrong :("
+                    self.answerText.textColor = .red
+                }
+        }
+    }
+    
+    func addBtnActions() {
+        //добавляем переход по тапу
+        btn1.actionButton = {
+            let post = PostViewController()
+            self.navigationController?.pushViewController(post, animated: true)
+        }
         
+        //задаем 2-ой кнопке то же действие
+        btn2.actionButton = btn1.actionButton
+    }
+    
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
             stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
@@ -90,38 +113,6 @@ class FeedViewController: UIViewController {
             answerText.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 60),
             answerText.centerXAnchor.constraint(equalTo: stackView.centerXAnchor)
         ])
-    }
-    
-    //добавляем действие по тапу - проверка кодового слова
-    func addTargets() {
-        checkGuessButton.actionButton = {
-            
-            func checkingPassword() {
-                
-                let input = self.textField.text ?? ""
-                let result : Bool = FeedViewModel().check(yourWord: input)
-                
-                if result == true {
-                    self.answerText.text = "You are right!"
-                    self.answerText.textColor = .green
-                } else {
-                    self.answerText.text = "You are wrong :("
-                    self.answerText.textColor = .red
-                }
-            }
-        }
-    }
-    
-    func addBtnActions() {
-        
-        //добавляем переход по тапу
-        btn1.actionButton = {
-            let post = PostViewController()
-            self.navigationController?.pushViewController(post, animated: true)
-        }
-        
-        //задаем 2-ой кнопке то же действие
-        btn2.actionButton = btn1.actionButton
     }
 }
 

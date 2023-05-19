@@ -13,6 +13,5 @@ final class FeedViewModel {
     
     func check(yourWord : String) -> Bool {
         password == yourWord ? true : false
-    }
-    
+    } 
 }
