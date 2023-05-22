@@ -9,4 +9,9 @@ import Foundation
 
 final class FeedViewModel {
     
+    let password = FeedModel().password
+    
+    func check(yourWord : String) -> Bool {
+        password == yourWord ? true : false
+    } 
 }

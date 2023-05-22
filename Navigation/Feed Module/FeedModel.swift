@@ -11,7 +11,4 @@ struct FeedModel {
     
     var password = "secretWord"
     
-    func check(yourWord : String) -> Bool {
-        password == yourWord ? true : false
-    }
 }
