@@ -148,19 +148,6 @@ class ProfileViewController : UIViewController {
         closeButton.addGestureRecognizer(closeButtonTapGesture)
         }
     
-    @objc private func tiredMessageTimer() {
-        let alert = UIAlertController(title: "Вы здесь уже 15 секунд",
-                                      message: "Пора бы отдохнуть...",
-                                      preferredStyle: .alert)
-        
-        print("Пора бы отдохнуть...")
-        self.present(alert, animated: true)
-    }
-    
-    deinit {
-        
-    }
-    
     @objc private func tapGestureAvatar(_ gestureRecognizer: UITapGestureRecognizer) {
         
         ///расчет размера, на сколько увеличивать аватарку
