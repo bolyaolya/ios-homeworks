@@ -11,7 +11,13 @@ import iOSIntPackage
 
 class PostTableViewCell: UITableViewCell {
 
-    //свойства
+    //MARK: свойства
+    
+    enum PostErrors : Error {
+        case connectionFailed
+        case undefined
+        case noPosts
+    }
     
     private lazy var authorLabel : UILabel = {
         let label = UILabel()
@@ -62,7 +68,7 @@ class PostTableViewCell: UITableViewCell {
     }()
     
     
-    //жизненный цикл
+    //MARK: жизненный цикл
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -74,25 +80,36 @@ class PostTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //методы
+    //MARK: методы
     
     private func layout() {
         setupViews()
         setupConstraints()
     }
     
-    public func setup(_ post: Post) {
-        self.authorLabel.text = post.author
-        self.image.image = UIImage(named: post.image)
-        self.descriptionLabel.text = post.description
-        self.likesLabel.text = "Likes: " + String(post.likes)
-        self.viewsLabel.text = "Views: " + String(post.views)
-        
-        let processor = ImageProcessor()
-
-        guard let imageView = image.image else { return }
-        processor.processImage(sourceImage: imageView, filter: .chrome) { filteredImage in
-            image.image = filteredImage
+    public func setup(_ post: Post)  {
+        do {
+            self.authorLabel.text = post.author
+            self.image.image = UIImage(named: post.image)
+            self.descriptionLabel.text = post.description
+            self.likesLabel.text = "Likes: " + String(post.likes)
+            self.viewsLabel.text = "Views: " + String(post.views)
+            
+            let processor =  ImageProcessor()
+            
+            guard let imageView = image.image else { return }
+            processor.processImage(sourceImage: imageView, filter: .chrome) { filteredImage in
+                image.image = filteredImage
+            }
+//        } else {
+//            throw PostErrors.connectionFailed
+//        }
+//        catch PostErrors.connectionFailed {
+//            print("Sorry, connection is lost")
+//        } catch PostErrors.noPosts {
+//            print("Sorry, you don't have posts")
+//        } catch PostErrors.undefined {
+//            print("Oops, something went wrong :(")
         }
     }
     
