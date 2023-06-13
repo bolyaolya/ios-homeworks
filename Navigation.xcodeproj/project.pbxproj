@@ -48,6 +48,7 @@
 		0CEE3BD22A0B944100B48B08 /* LoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEE3BD12A0B944100B48B08 /* LoginFactory.swift */; };
 		0CEE3BD42A0B947E00B48B08 /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEE3BD32A0B947E00B48B08 /* LoginInspector.swift */; };
 		0CEE3BD62A0B94FA00B48B08 /* LoginViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEE3BD52A0B94FA00B48B08 /* LoginViewControllerDelegate.swift */; };
+		0CF995ED2A1663F7007C244E /* BruteForce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF995EC2A1663F7007C244E /* BruteForce.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +115,7 @@
 		0CEE3BD12A0B944100B48B08 /* LoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFactory.swift; sourceTree = "<group>"; };
 		0CEE3BD32A0B947E00B48B08 /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
 		0CEE3BD52A0B94FA00B48B08 /* LoginViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewControllerDelegate.swift; sourceTree = "<group>"; };
+		0CF995EC2A1663F7007C244E /* BruteForce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BruteForce.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,7 +209,9 @@
 		01C137CC28A926DC003B5405 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+
 				0C5BFC652A2A3E8B00E90112 /* Network Module */,
+				0CF995EB2A1663E2007C244E /* BruteForce */,
 				0CEE3BC22A0B86F200B48B08 /* Coordinators */,
 				0C3DECCD2A0509D20043BF90 /* View */,
 				01EE9F2728AACB5000D96A3D /* Application */,
@@ -301,6 +305,14 @@
 				0CEE3BC52A0B873500B48B08 /* Coordinator.swift */,
 			);
 			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		0CF995EB2A1663E2007C244E /* BruteForce */ = {
+			isa = PBXGroup;
+			children = (
+				0CF995EC2A1663F7007C244E /* BruteForce.swift */,
+			);
+			path = BruteForce;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -435,6 +447,7 @@
 				0C5BFC692A2A3EBC00E90112 /* AppConfiguration.swift in Sources */,
 				01EE9F2E28AAD7E300D96A3D /* FeedViewController.swift in Sources */,
 				0CEE3BD42A0B947E00B48B08 /* LoginInspector.swift in Sources */,
+				0CF995ED2A1663F7007C244E /* BruteForce.swift in Sources */,
 				015EC8C828D244AF0057F34D /* LogInViewController.swift in Sources */,
 				0CEE3BC62A0B873500B48B08 /* Coordinator.swift in Sources */,
 				0CEE3BC42A0B872600B48B08 /* AppCoordinator.swift in Sources */,
