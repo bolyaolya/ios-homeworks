@@ -37,6 +37,8 @@
 		0C405B8529F2C67B00F4FF61 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0C405B8429F2C67B00F4FF61 /* SnapKit */; };
 		0C4D821F2A0280EC0090D4E8 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4D821E2A0280EC0090D4E8 /* Checker.swift */; };
 		0C4D82212A0290520090D4E8 /* MyLoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4D82202A0290520090D4E8 /* MyLoginFactory.swift */; };
+		0C5BFC672A2A3EA800E90112 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5BFC662A2A3EA800E90112 /* NetworkService.swift */; };
+		0C5BFC692A2A3EBC00E90112 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5BFC682A2A3EBC00E90112 /* AppConfiguration.swift */; };
 		0CDA21892A03D4A500E00DB9 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 0CDA21882A03D4A500E00DB9 /* iOSIntPackage */; };
 		0CEE3BC42A0B872600B48B08 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEE3BC32A0B872600B48B08 /* AppCoordinator.swift */; };
 		0CEE3BC62A0B873500B48B08 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEE3BC52A0B873500B48B08 /* Coordinator.swift */; };
@@ -103,6 +105,8 @@
 		0C3DECD02A050F3E0043BF90 /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
 		0C4D821E2A0280EC0090D4E8 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
 		0C4D82202A0290520090D4E8 /* MyLoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLoginFactory.swift; sourceTree = "<group>"; };
+		0C5BFC662A2A3EA800E90112 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		0C5BFC682A2A3EBC00E90112 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		0CEE3BC32A0B872600B48B08 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		0CEE3BC52A0B873500B48B08 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		0CEE3BC92A0B897500B48B08 /* loginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginCoordinator.swift; sourceTree = "<group>"; };
@@ -205,6 +209,7 @@
 		01C137CC28A926DC003B5405 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				0C5BFC652A2A3E8B00E90112 /* Network Module */,
 				0CF995EB2A1663E2007C244E /* BruteForce */,
 				0CEE3BC22A0B86F200B48B08 /* Coordinators */,
 				0C3DECCD2A0509D20043BF90 /* View */,
@@ -281,6 +286,15 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0C5BFC652A2A3E8B00E90112 /* Network Module */ = {
+			isa = PBXGroup;
+			children = (
+				0C5BFC662A2A3EA800E90112 /* NetworkService.swift */,
+				0C5BFC682A2A3EBC00E90112 /* AppConfiguration.swift */,
+			);
+			path = "Network Module";
 			sourceTree = "<group>";
 		};
 		0CEE3BC22A0B86F200B48B08 /* Coordinators */ = {
@@ -429,6 +443,7 @@
 				0CEE3BCC2A0B8AE700B48B08 /* TabBarCoordinator.swift in Sources */,
 				0167ED352967050400664CAB /* ProfilePostModel.swift in Sources */,
 				0167ED3729670D3000664CAB /* PostTableViewCell.swift in Sources */,
+				0C5BFC692A2A3EBC00E90112 /* AppConfiguration.swift in Sources */,
 				01EE9F2E28AAD7E300D96A3D /* FeedViewController.swift in Sources */,
 				0CEE3BD42A0B947E00B48B08 /* LoginInspector.swift in Sources */,
 				0CF995ED2A1663F7007C244E /* BruteForce.swift in Sources */,
@@ -450,6 +465,7 @@
 				010DF7352987EE18008EEA6E /* PhotosCollectionViewCell.swift in Sources */,
 				0C4D82212A0290520090D4E8 /* MyLoginFactory.swift in Sources */,
 				010DF7332987EE04008EEA6E /* PhotosViewController.swift in Sources */,
+				0C5BFC672A2A3EA800E90112 /* NetworkService.swift in Sources */,
 				01C137D028A926DC003B5405 /* SceneDelegate.swift in Sources */,
 				01EE9F3328AAE14200D96A3D /* DetailViewController.swift in Sources */,
 			);

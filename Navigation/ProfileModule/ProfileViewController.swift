@@ -9,7 +9,6 @@ import StorageService
 
 class ProfileViewController : UIViewController {
     
-    
     //MARK: свойства
     
     var user : User = User(login: "olyabolya", fullName: "Olya Boyko", avatar: UIImage(named: "hypno") ?? UIImage(), status: "I love Formula 1")
@@ -70,18 +69,18 @@ class ProfileViewController : UIViewController {
         layout()
         
         //добавлен таймер от усталости
-        Timer.scheduledTimer(withTimeInterval: 5.0,
-                             repeats: false) { timer in
-
-            let alert = UIAlertController(title: "Вы здесь уже 5 секунд",
-                                          message: "Пора бы отдохнуть...",
-                                          preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .cancel))
-            
-            print("Пора бы отдохнуть...")
-            self.present(alert, animated: true)
-            timer.invalidate()
-        }
+//        Timer.scheduledTimer(withTimeInterval: 5.0,
+//                             repeats: false) { timer in
+//
+//            let alert = UIAlertController(title: "Вы здесь уже 5 секунд",
+//                                          message: "Пора бы отдохнуть...",
+//                                          preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+//
+//            print("Пора бы отдохнуть...")
+//            self.present(alert, animated: true)
+//            timer.invalidate()
+//        }
     }
     
     //MARK: методы
