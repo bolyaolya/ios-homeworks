@@ -111,7 +111,8 @@ class FeedViewController: UIViewController {
             textField.heightAnchor.constraint(equalToConstant: 30),
             
             answerText.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 60),
-            answerText.centerXAnchor.constraint(equalTo: stackView.centerXAnchor)
+            answerText.centerXAnchor.constraint(equalTo: stackView.centerXAnchor),
+            
         ])
     }
 }

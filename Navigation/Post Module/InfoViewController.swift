@@ -13,7 +13,7 @@ class InfoViewController : UIViewController {
     
     private lazy var titleLabel : UILabel = {
         let label = UILabel()
-        
+        label.text = "\(titleText)"
         label.font = UIFont.systemFont(ofSize: 20)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -22,7 +22,7 @@ class InfoViewController : UIViewController {
     
     private lazy var citizenLabel : UILabel = {
         let label = UILabel()
-        label.text = "\(titleText)"
+        label.text = "\(orbitalPeriod)"
         label.font = UIFont.systemFont(ofSize: 20)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -57,21 +57,20 @@ class InfoViewController : UIViewController {
             button.widthAnchor.constraint(equalToConstant: 100),
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             button.topAnchor.constraint(equalTo: citizenLabel.bottomAnchor, constant: 50)
-            
         ])
     }
-        
+    
     @objc func taptap() {
         
-    let alertMessage = UIAlertController(title: "Hello", message: "It's me", preferredStyle: .alert)
-    let answer = UIAlertAction(title: "Hello Adele", style: .default, handler: { _ in
-                print("Hello Adele")
-    })
-    let answer1 = UIAlertAction(title: "Bye Adele", style: .default, handler: { _ in
-                print("Bye Adele")
-    })
-    alertMessage.addAction(answer)
-    alertMessage.addAction(answer1)
-    self.present(alertMessage, animated: true)
+        let alertMessage = UIAlertController(title: "Hello", message: "It's me", preferredStyle: .alert)
+        let answer = UIAlertAction(title: "Hello Adele", style: .default, handler: { _ in
+            print("Hello Adele")
+        })
+        let answer1 = UIAlertAction(title: "Bye Adele", style: .default, handler: { _ in
+            print("Bye Adele")
+        })
+        alertMessage.addAction(answer)
+        alertMessage.addAction(answer1)
+        self.present(alertMessage, animated: true)
     }
 }
