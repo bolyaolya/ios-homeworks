@@ -43,8 +43,6 @@ class InfoViewController : UIViewController {
         view.addSubview(citizenLabel)
         
         setupConstraints()
-        
-        titleLabel.text = HW1.data
     }
     
     private func setupConstraints() {

@@ -7,10 +7,10 @@
 
 import Foundation
 
-//enum AppConfiguration : String, CaseIterable {
-//    case first = "https://jsonplaceholder.typicode.com/todos/1"
-//    case second = "https://swapi.dev/api/planets/1"
-//}
+enum AppConfiguration : String, CaseIterable {
+    case first = "https://jsonplaceholder.typicode.com/todos/1"
+    case second = "https://swapi.dev/api/planets/1"
+}
 
 //struct SomeData {
 //    var data : String = ""

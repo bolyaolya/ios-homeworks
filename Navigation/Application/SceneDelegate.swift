@@ -11,7 +11,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     var rootCoordinator : AppCoordinator?
-    var appConfiguration: AppConfiguration?
+//    var appConfiguration: AppConfiguration?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
@@ -25,14 +25,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         rootCoordinator = AppCoordinator.init(navigationController)
         rootCoordinator?.start()
         
-        //Выбираем элемент и идем в сеть
-        appConfiguration = AppConfiguration.allCases.randomElement()
-        
-        if let config = appConfiguration {
-            NetworkService.request(for: config)
-        } else {
-            print("You have a bad url for request")
-        }
+//        //Выбираем элемент и идем в сеть
+//        appConfiguration = AppConfiguration.allCases.randomElement()
+//
+//        if let config = appConfiguration {
+//            NetworkService.request(for: config)
+//        } else {
+//            print("You have a bad url for request")
+//        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
