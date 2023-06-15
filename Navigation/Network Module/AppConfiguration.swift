@@ -12,9 +12,9 @@ enum AppConfiguration : String, CaseIterable {
     case second = "https://swapi.dev/api/planets/1"
 }
 
-//struct SomeData {
-//    var data : String = ""
-//}
+struct SomeData {
+    var data : String = ""
+}
 //
 //var HW1 = SomeData()
 //var HW2 = SomeData()
