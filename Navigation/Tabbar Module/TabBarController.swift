@@ -26,11 +26,11 @@ class TabBarController: UITabBarController {
     private func setupUI() {
         
 //        let loginVC = LogInViewController()
-        let profileVC = ProfileViewController()
+//        let profileVC = ProfileViewController(userService: UserService, name: user)
         let feedVC = FeedViewController()
         
         firstTabNavigationController = UINavigationController.init(rootViewController: feedVC)
-        secondTabNavigationController = UINavigationController.init(rootViewController: profileVC)
+//        secondTabNavigationController = UINavigationController.init(rootViewController: profileVC)
         
         //Добавляем навигационные контроллеры в контейнер таббара
         self.viewControllers = [firstTabNavigationController, secondTabNavigationController]

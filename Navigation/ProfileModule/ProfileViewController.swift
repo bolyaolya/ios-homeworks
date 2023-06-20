@@ -11,7 +11,23 @@ class ProfileViewController : UIViewController {
     
     //MARK: свойства
     
-    var user : User = User(login: "olyabolya", fullName: "Olya Boyko", avatar: UIImage(named: "hypno") ?? UIImage(), status: "I love Formula 1")
+    let userService : UserService
+    let name : String
+    
+    init(userService: UserService, name: String) {
+        self.userService = userService
+        self.name = name
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private lazy var profileHeader: ProfileHeaderView = {
+        let profileHeader = ProfileHeaderView()
+        return profileHeader
+    }()
     
     private lazy var tableView : UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -210,9 +226,13 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
-            let profile = ProfileHeaderView()
-            profile.setup(user: user)
-            return profile
+            let header = profileHeader
+            let user = userService.checkLogin(login: name)
+            header.fullNameLabel.text = user?.fullName
+            header.avatarImageView.image = user?.avatar
+            header.statusLabel.text = user?.status
+            
+            return header
         }
         return nil
     }
