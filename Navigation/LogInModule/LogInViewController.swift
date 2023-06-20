@@ -151,7 +151,7 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
             // считаем нужную точку и проверяем перекрывает ли клавиатура кнопку
             let loginButtonBottomPointY = loginButton.frame.origin.y + loginButton.frame.height
             
-            let keyboardOriginY = view.frame.height - keyboardHeight
+            let keyboardOriginY = scrollView.frame.height - keyboardHeight
             
             let yOffset = keyboardOriginY < loginButtonBottomPointY
             ? loginButtonBottomPointY - keyboardOriginY + 16
