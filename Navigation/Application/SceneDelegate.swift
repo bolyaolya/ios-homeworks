@@ -25,14 +25,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         rootCoordinator = AppCoordinator.init(navigationController)
         rootCoordinator?.start()
         
-        //Выбираем элемент и идем в сеть
-        appConfiguration = AppConfiguration.allCases.randomElement()
-        
-        if let config = appConfiguration {
-            NetworkService.request(for: config)
-        } else {
-            print("You have a bad url for request")
-        }
+
+        PlanetNetworkManager.request()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
