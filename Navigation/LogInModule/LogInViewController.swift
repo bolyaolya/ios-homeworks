@@ -7,12 +7,21 @@
 
 import UIKit
 import FirebaseAuth
+import RealmSwift
 
 final class LogInViewController : UIViewController, UITextFieldDelegate {
     
     //MARK: свойства
     
     var loginDelegate : LoginViewControllerDelegate?
+    
+    var realmManager = RealmManager()
+    
+    #if DEBUG
+    var userLogin : TestUserService?
+    #else
+    var userLogin : CurrentUserService?
+    #endif
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -66,6 +75,7 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
         password.textColor = .black
         password.font = .systemFont(ofSize: 16, weight: .regular)
         password.placeholder = "Password"
+        password.clearButtonMode = .whileEditing
         password.returnKeyType = .done
         password.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: password.frame.height))
         password.leftViewMode = .always
@@ -93,6 +103,8 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        userVerification()
         
         // наблюдаем за уведомлениями об появлении или исчезнавении клавиатуры
         NotificationCenter.default.addObserver(self,
@@ -198,6 +210,39 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
         self.present(alert, animated: true)
     }
     
+//    private func addBtnActions() {
+//
+//        loginButton.actionButton = {
+//
+//            guard let enteredEmail = self.email.text,
+//                  let enteredPassword = self.password.text,
+//                  (!enteredEmail.isEmpty && !enteredPassword.isEmpty)
+//            else {
+//                self.alertError(message: "Введите логин и пароль")
+//                return
+//            }
+//
+//            CheckerService().checkCredentials(email: self.email.text!, password: self.password.text!) { result in
+//                if result == "authorization completed" {
+//                    self.showProfileVC()
+//                } else if result == "There is no user record corresponding to this identifier. The user may have been deleted." {
+//                    self.alertBadLogin(message: result) { result in
+//                        CheckerService().signUp(email: enteredEmail, password: enteredPassword) { result in
+//                            if result == "registration completed" {
+//                                self.alertSuccess(message: result)
+//                            } else {
+//                                self.alertError(message: result)
+//                            }
+//                        }
+//                    }
+//                } else {
+//                    self.alertError(message: result)
+//                }
+//            }
+//        }
+//    }
+    
+    
     private func addBtnActions() {
         
         loginButton.actionButton = {
@@ -210,13 +255,26 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
                 return
             }
             
-            CheckerService().checkCredentials(email: self.email.text!, password: self.password.text!) { result in
+#if DEBUG
+            self.userLogin = TestUserService(user: User(login: "Olya Boyko", avatar: UIImage(named: "avatar") ?? UIImage(), status: "Waiting for smth"))
+#else
+            self.userLogin = CurrentUserService(user: User(login: "Test Test", avatar: UIImage(named: "hypno") ?? UIImage(), status: "Test"))
+#endif
+            
+            CheckerService().checkCredentials(email: enteredEmail, password: enteredPassword) { result in
                 if result == "authorization completed" {
-                    self.showProfileVC()
+                
+                    let profileVC = ProfileViewController()
+                    profileVC.userIsLogin = self.userLogin!.user
+                    
+                    self.realmManager.saveRealmUser(login: enteredEmail, password: enteredPassword)
+                    self.navigationController?.pushViewController(profileVC, animated: true)
+                    
                 } else if result == "There is no user record corresponding to this identifier. The user may have been deleted." {
                     self.alertBadLogin(message: result) { result in
                         CheckerService().signUp(email: enteredEmail, password: enteredPassword) { result in
-                            if result == "registration completed" {
+                            if result == "Registration completed" {
+                                self.realmManager.saveRealmUser(login: enteredEmail, password: enteredPassword)
                                 self.alertSuccess(message: result)
                             } else {
                                 self.alertError(message: result)
@@ -227,6 +285,22 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
                     self.alertError(message: result)
                 }
             }
+        }
+    }
+    
+    func userVerification() {
+        realmManager.reloadUserData()
+        if !realmManager.realmUsers.isEmpty {
+            
+        #if DEBUG
+            userLogin = TestUserService(user: User(login: "Olya Boyko", avatar: UIImage(named: "avatar") ?? UIImage(), status: "Waiting for smth"))
+        #else
+            userLogin = CurrentUserService(user: User(login: "Test Test", avatar: UIImage(named: "hypno") ?? UIImage(), status: "Test"))
+        #endif
+            
+            let profileVC = ProfileViewController()
+            profileVC.userIsLogin = userLogin!.user
+            self.navigationController?.pushViewController(profileVC, animated: true)
         }
     }
     
@@ -281,11 +355,11 @@ extension LogInViewController: UITextViewDelegate {
     }
 }
 
-extension LogInViewController {
-    func showProfileVC() {
-        let user = TestUserService()
-        
-        let profileViewController = ProfileViewController(userService: user, name: email.text!)
-        navigationController?.pushViewController(profileViewController, animated: true)
-    }
-}
+//extension LogInViewController {
+//    func showProfileVC() {
+//        let user = TestUserService()
+//
+//        let profileViewController = ProfileViewController(userService: user, name: email.text!)
+//        navigationController?.pushViewController(profileViewController, animated: true)
+//    }
+//}
