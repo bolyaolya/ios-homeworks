@@ -25,8 +25,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         rootCoordinator = AppCoordinator.init(navigationController)
         rootCoordinator?.start()
         
+//        PlanetNetworkManager.request()
 
-        PlanetNetworkManager.request()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

@@ -7,52 +7,38 @@
 
 import UIKit
 
-class User {
-    let login : String
-    let fullName : String
-    let avatar : UIImage
-    let status : String
-    
-    init(login: String, fullName: String, avatar: UIImage, status: String) {
-        self.login = login
-        self.fullName = fullName
-        self.avatar = avatar
-        self.status = status
-    }
-}
-
 protocol UserService {
-    func checkLogin ( login : String) -> User?
+    func checkLogin (login : String) -> User?
 }
 
-class CurrentUserService : UserService {
+final class User {
+    var login : String?
+    var fullName : String?
+    var avatar : UIImage?
+    var status : String?
+}
+
+final class CurrentUserService : UserService {
     
-    let user : User
+    let user = User()
     
     func checkLogin(login: String) -> User? {
-        if user.login == login {
-            return user
-        }
-        return nil
-    }
-    
-    init(user: User) {
-        self.user = user
+        return user.login == login ? user : nil
     }
 }
 
-class TestUserService : UserService {
+final class TestUserService : UserService {
     
-    let user : User
+    let user: User = {
+        let user = User()
+        user.login = "1234"
+        user.fullName = "Olga Boyko"
+        user.status = "Waiting For Something"
+        user.avatar = UIImage(named: "jdun")
+        return user
+    }()
     
     func checkLogin(login: String) -> User? {
-        if user.login == login {
-            return user
-        }
-        return nil
-    }
-    
-    init(user: User) {
-        self.user = user
+        return user
     }
 }
