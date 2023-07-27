@@ -11,18 +11,20 @@ class ProfileViewController : UIViewController {
     
     //MARK: свойства
     
-    let userService : UserService
-    let name : String
+//    let userService : UserService
+//    let name : String
     
-    init(userService: UserService, name: String) {
-        self.userService = userService
-        self.name = name
-        super.init(nibName: nil, bundle: nil)
-    }
+    var userIsLogin : User = User(login: "", avatar: UIImage(), status: "")
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+//    init(userService: UserService, name: String) {
+//        self.userService = userService
+//        self.name = name
+//        super.init(nibName: nil, bundle: nil)
+//    }
+//
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
     private lazy var profileHeader: ProfileHeaderView = {
         let profileHeader = ProfileHeaderView()
@@ -226,13 +228,17 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
-            let header = profileHeader
-            let user = userService.checkLogin(login: name)
-            header.fullNameLabel.text = user?.fullName
-            header.avatarImageView.image = user?.avatar
-            header.statusLabel.text = user?.status
+//            let header = profileHeader
+//            let user = userService.checkLogin(login: name)
+//            header.fullNameLabel.text = user?.fullName
+//            header.avatarImageView.image = user?.avatar
+//            header.statusLabel.text = user?.status
+//
+//            return header
             
-            return header
+            let profile = ProfileHeaderView()
+            profile.setup(user: userIsLogin)
+            return profile
         }
         return nil
     }

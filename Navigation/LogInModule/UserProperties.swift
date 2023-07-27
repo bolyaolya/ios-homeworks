@@ -7,38 +7,44 @@
 
 import UIKit
 
-protocol UserService {
-    func checkLogin (login : String) -> User?
-}
+//protocol UserService {
+//    func checkLogin (login : String) -> User?
+//}
 
-final class User {
-    var login : String?
-    var fullName : String?
-    var avatar : UIImage?
-    var status : String?
-}
-
-final class CurrentUserService : UserService {
+class User {
+    let login : String
+    let avatar : UIImage
+    let status : String
     
-    let user = User()
-    
-    func checkLogin(login: String) -> User? {
-        return user.login == login ? user : nil
+    init(login: String, avatar: UIImage, status: String) {
+        self.login = login
+        self.avatar = avatar
+        self.status = status
     }
 }
 
-final class TestUserService : UserService {
+final class CurrentUserService {
     
-    let user: User = {
-        let user = User()
-        user.login = "1234"
-        user.fullName = "Olga Boyko"
-        user.status = "Waiting For Something"
-        user.avatar = UIImage(named: "jdun")
-        return user
-    }()
+    let user : User
     
-    func checkLogin(login: String) -> User? {
-        return user
+//    func checkLogin(login: String) -> User? {
+//        return user.login == login ? user : nil
+//    }
+    
+    init(user: User) {
+        self.user = user
+    }
+}
+
+final class TestUserService {
+    
+    let user: User
+    
+//    func checkLogin(login: String) -> User? {
+//        return user
+//    }
+    
+    init(user: User) {
+        self.user = user
     }
 }
