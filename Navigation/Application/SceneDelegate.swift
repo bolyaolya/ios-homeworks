@@ -25,7 +25,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         rootCoordinator = AppCoordinator.init(navigationController)
         rootCoordinator?.start()
         
-//        PlanetNetworkManager.request()
 
     }
 

@@ -32,6 +32,4 @@ class TabBarCoordinator : Coordinator {
         let tabBar = TabBarController()
         navigationController.pushViewController(tabBar, animated: true)
     }
-    
-    
 }

@@ -264,11 +264,12 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
             CheckerService().checkCredentials(email: enteredEmail, password: enteredPassword) { result in
                 if result == "authorization completed" {
                 
-                    let profileVC = ProfileViewController()
-                    profileVC.userIsLogin = self.userLogin!.user
+//                    let profileVC = ProfileViewController()
+//                    profileVC.userIsLogin = self.userLogin!.user
+                    let tabBarContr = TabBarController()
                     
                     self.realmManager.saveRealmUser(login: enteredEmail, password: enteredPassword)
-                    self.navigationController?.pushViewController(profileVC, animated: true)
+                    self.navigationController?.pushViewController(tabBarContr, animated: true)
                     
                 } else if result == "There is no user record corresponding to this identifier. The user may have been deleted." {
                     self.alertBadLogin(message: result) { result in
@@ -298,9 +299,10 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
             userLogin = CurrentUserService(user: User(login: "Test Test", avatar: UIImage(named: "hypno") ?? UIImage(), status: "Test"))
         #endif
             
-            let profileVC = ProfileViewController()
-            profileVC.userIsLogin = userLogin!.user
-            self.navigationController?.pushViewController(profileVC, animated: true)
+//            let profileVC = ProfileViewController()
+//            profileVC.userIsLogin = userLogin!.user
+            let tabBarContr = TabBarController()
+            self.navigationController?.pushViewController(tabBarContr, animated: true)
         }
     }
     
