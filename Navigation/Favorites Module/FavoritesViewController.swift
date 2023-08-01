@@ -35,9 +35,13 @@ final class FavoritesViewController : UIViewController {
         title = "Your Favorites"
         view.backgroundColor = .white
         
+        let searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchByAuthor))
+        let deleteButton = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(deleteFilter))
+        navigationItem.rightBarButtonItems = [searchButton, deleteButton]
+        
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor), 
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -48,7 +52,21 @@ final class FavoritesViewController : UIViewController {
         super.viewWillAppear(animated)
         CoreDataManager.defaultManager.reloadPosts()
         tableView.reloadData()
-    }  
+    }
+    
+    @objc private func searchByAuthor() {
+        searchField(title: "По автору", actionHandler: { text in
+            if let result = text {
+                CoreDataManager.defaultManager.getSearchResult(by: result)
+                self.tableView.reloadData()
+            }
+        })
+    }
+    
+    @objc private func deleteFilter() {
+        CoreDataManager.defaultManager.reloadPosts()
+        tableView.reloadData()
+    }
 }
 
 extension FavoritesViewController : UITableViewDelegate, UITableViewDataSource {
@@ -81,3 +99,45 @@ extension FavoritesViewController : UITableViewDelegate, UITableViewDataSource {
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
+
+extension UIViewController {
+    func searchField(title : String? = nil,
+                     subtitle : String? = nil,
+                     inputText : String? = nil,
+                     inputKeyboardType : UIKeyboardType = UIKeyboardType.default,
+                     actionTitle : String? = "Поиск",
+                     cancelTitle : String? = "Отмена",
+                     cancelHandler: ((UIAlertAction) -> Swift.Void)? = nil,
+                     actionHandler: ((_ text: String?) -> Void)? = nil) {
+        
+        let alert = UIAlertController(title: title, message: subtitle, preferredStyle: .alert)
+        alert.addTextField { (textField : UITextField) in
+            textField.placeholder = inputText
+            textField.keyboardType = inputKeyboardType
+        }
+        alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: { (action : UIAlertAction) in
+            guard let textField = alert.textFields?.first else {
+                actionHandler?(nil)
+                return
+            }
+            actionHandler?(textField.text)
+        }))
+        alert.addAction(UIAlertAction(title: cancelTitle, style: .cancel, handler: cancelHandler))
+        self.present(alert, animated: true)
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
