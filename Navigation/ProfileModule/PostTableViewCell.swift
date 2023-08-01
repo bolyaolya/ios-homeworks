@@ -19,6 +19,8 @@ class PostTableViewCell: UITableViewCell {
         case noPosts
     }
     
+    private var post : Post?
+    
     private lazy var authorLabel : UILabel = {
         let label = UILabel()
         label.textColor = .black
@@ -74,6 +76,7 @@ class PostTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         layout()
+        addPostGesture()
     }
     
     required init?(coder: NSCoder) {
@@ -87,20 +90,21 @@ class PostTableViewCell: UITableViewCell {
         setupConstraints()
     }
     
-    public func setup(_ post: Post)  {
+    public func setup(post: Post)  {
         do {
             self.authorLabel.text = post.author
             self.image.image = UIImage(named: post.image)
             self.descriptionLabel.text = post.description
             self.likesLabel.text = "Likes: " + String(post.likes)
             self.viewsLabel.text = "Views: " + String(post.views)
+            self.post = post
             
-            let processor =  ImageProcessor()
-            
-            guard let imageView = image.image else { return }
-            processor.processImage(sourceImage: imageView, filter: .chrome) { filteredImage in
-                image.image = filteredImage
-            }
+//            let processor =  ImageProcessor()
+//
+//            guard let imageView = image.image else { return }
+//            processor.processImage(sourceImage: imageView, filter: .chrome) { filteredImage in
+//                image.image = filteredImage
+//            }
 //        } else {
 //            throw PostErrors.connectionFailed
 //        }
@@ -110,6 +114,51 @@ class PostTableViewCell: UITableViewCell {
 //            print("Sorry, you don't have posts")
 //        } catch PostErrors.undefined {
 //            print("Oops, something went wrong :(")
+        }
+    }
+    
+    public func setupFromCoreData(post : Favorite) {
+        authorLabel.text = post.author
+        descriptionLabel.text = post.descriptionText
+        image.image = UIImage(named: post.image ?? "")
+        likesLabel.text = "Likes: " + String(post.likes)
+        viewsLabel.text = "Views: " + String(post.views)
+    }
+    
+    func addPostGesture() {
+        let gestureRecogniser = UITapGestureRecognizer(target: self, action: #selector(postTapped))
+        gestureRecogniser.numberOfTapsRequired = 2
+        self.addGestureRecognizer(gestureRecogniser)
+    }
+    
+    @objc func postTapped() {
+        savedToFavAlert(message: "Do you want to save this post to Favorites?")
+    }
+    
+    func savedToFavAlert(message : String) {
+        let alert = UIAlertController(title: "Saving to Favorites", message: message, preferredStyle: .alert)
+        let actionOne = UIAlertAction(title: "OK", style: .default) { [self] actionOne in
+            savePostToCoreData()
+        }
+        let actionTwo = UIAlertAction(title: "Cancel", style: .default)
+        alert.addAction(actionOne)
+        alert.addAction(actionTwo)
+        UIApplication.topViewController()?.present(alert, animated: true)
+    }
+    
+    //почему-то не работает
+    func successfulSave() {
+        let alert = UIAlertController(title: "Done!", message: .none, preferredStyle: .alert)
+        let answer = UIAlertAction(title: "ok", style: .default)
+        alert.addAction(answer)
+    }
+    
+    func savePostToCoreData() {
+        if let savedpost = post {
+            CoreDataManager.defaultManager.addPostToFav(author: savedpost.author, descriptionText: savedpost.description, image: savedpost.image, likes: Int64(savedpost.likes), views: Int64(savedpost.views), id: Int64(savedpost.id))
+            successfulSave()
+        } else {
+            print("Something wrong with saving post at coreData :(")
         }
     }
     
@@ -144,5 +193,22 @@ class PostTableViewCell: UITableViewCell {
             viewsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             likesLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         ])
+    }
+}
+
+extension UIApplication {
+    class func topViewController(controller: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
+        if let navigationController = controller as? UINavigationController {
+            return topViewController(controller: navigationController.visibleViewController)
+        }
+        if let tabController = controller as? UITabBarController {
+            if let selected = tabController.selectedViewController {
+                return topViewController(controller: selected)
+            }
+        }
+        if let presented = controller?.presentedViewController {
+            return topViewController(controller: presented)
+        }
+        return controller
     }
 }

@@ -6,6 +6,7 @@
 //
 import UIKit
 import StorageService
+import CoreData
 
 class ProfileViewController : UIViewController {
     
@@ -53,7 +54,7 @@ class ProfileViewController : UIViewController {
         copyAvatar.clipsToBounds = true
         copyAvatar.layer.cornerRadius = 25
         copyAvatar.isUserInteractionEnabled = true
-//        copyAvatar.isHidden = true
+        copyAvatar.isHidden = true
         copyAvatar.translatesAutoresizingMaskIntoConstraints = false
         return copyAvatar
     }()
@@ -221,7 +222,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCellID", for: indexPath) as! PostTableViewCell
 
             let dataSource = post[indexPath.row - 1]
-            cell.setup(dataSource)
+            cell.setup(post: dataSource)
             return cell
         }
     }
