@@ -143,6 +143,9 @@ class PostTableViewCell: UITableViewCell {
         let actionTwo = UIAlertAction(title: "Cancel", style: .default)
         alert.addAction(actionOne)
         alert.addAction(actionTwo)
+        
+        
+        
         UIApplication.topViewController()?.present(alert, animated: true)
     }
     
@@ -154,11 +157,17 @@ class PostTableViewCell: UITableViewCell {
     }
     
     func savePostToCoreData() {
+        
+        var postIndex : [Int] = []
+        
         if let savedpost = post {
             CoreDataManager.defaultManager.addPostToFav(author: savedpost.author, descriptionText: savedpost.description, image: savedpost.image, likes: Int64(savedpost.likes), views: Int64(savedpost.views), id: Int64(savedpost.id))
             successfulSave()
         } else {
-            print("Something wrong with saving post at coreData :(")
+//            print("Something wrong with saving post at coreData :(")
+            if let idPost = postIndex.firstIndex(of: post!.id) {
+                print("Этот пост уже добавлен в избранное")
+            }
         }
     }
     

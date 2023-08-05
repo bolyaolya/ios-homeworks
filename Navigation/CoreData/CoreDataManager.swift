@@ -90,6 +90,19 @@ final class CoreDataManager {
         reloadPosts()
         posts.removeAll { $0 == post }
     }
+    
+    func getSearchResult(by: String) {
+        let answer = Favorite.fetchRequest()
+        answer.predicate = NSPredicate(format: "author CONTAINS[c] %@", by)
+        answer.sortDescriptors = [NSSortDescriptor(key: "author", ascending: true)]
+        
+        do {
+            let sortedPosts = try persistentContainer.viewContext.fetch(answer)
+            posts = sortedPosts
+        } catch let error {
+            print("Ошибка \(error.localizedDescription)")
+        }
+    }
 }
 
 
