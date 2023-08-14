@@ -149,11 +149,11 @@ class PostTableViewCell: UITableViewCell {
         UIApplication.topViewController()?.present(alert, animated: true)
     }
     
-    //почему-то не работает
     func successfulSave() {
-        let alert = UIAlertController(title: "Done!", message: .none, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Saved!", message: .none, preferredStyle: .alert)
         let answer = UIAlertAction(title: "ok", style: .default)
         alert.addAction(answer)
+        UIApplication.shared.windows.filter { $0.isKeyWindow }.first?.rootViewController?.present(alert, animated: true)
     }
     
     func savePostToCoreData() {
