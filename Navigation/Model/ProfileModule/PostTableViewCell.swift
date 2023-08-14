@@ -9,9 +9,9 @@ import UIKit
 import StorageService
 import iOSIntPackage
 
-class PostTableViewCell: UITableViewCell {
+final class PostTableViewCell: UITableViewCell {
 
-    //MARK: свойства
+    //MARK: - Properties
     
     enum PostErrors : Error {
         case connectionFailed
@@ -20,6 +20,9 @@ class PostTableViewCell: UITableViewCell {
     }
     
     private var post : Post?
+    
+    let localizedLikes = NSLocalizedString("countLikes", comment: "")
+    let localizedViews = NSLocalizedString("countViews", comment: "")
     
     private lazy var authorLabel : UILabel = {
         let label = UILabel()
@@ -70,7 +73,7 @@ class PostTableViewCell: UITableViewCell {
     }()
     
     
-    //MARK: жизненный цикл
+    //MARK: - Life cycle
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -83,7 +86,7 @@ class PostTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: методы
+    //MARK: - Methods
     
     private func layout() {
         setupViews()
@@ -95,8 +98,8 @@ class PostTableViewCell: UITableViewCell {
             self.authorLabel.text = post.author
             self.image.image = UIImage(named: post.image)
             self.descriptionLabel.text = post.description
-            self.likesLabel.text = "Likes: " + String(post.likes)
-            self.viewsLabel.text = "Views: " + String(post.views)
+            self.likesLabel.text = String(format: localizedLikes, Int(post.likes))
+            self.viewsLabel.text = String(format: localizedViews, Int(post.views))
             self.post = post
             
 //            let processor =  ImageProcessor()
@@ -121,8 +124,8 @@ class PostTableViewCell: UITableViewCell {
         authorLabel.text = post.author
         descriptionLabel.text = post.descriptionText
         image.image = UIImage(named: post.image ?? "")
-        likesLabel.text = "Likes: " + String(post.likes)
-        viewsLabel.text = "Views: " + String(post.views)
+        likesLabel.text = String(format: localizedLikes, Int(post.likes))
+        viewsLabel.text = String(format: localizedViews, Int(post.views))
     }
     
     func addPostGesture() {
@@ -132,26 +135,27 @@ class PostTableViewCell: UITableViewCell {
     }
     
     @objc func postTapped() {
-        savedToFavAlert(message: "Do you want to save this post to Favorites?")
+//        savedToFavAlert(message: "Do you want to save this post to Favorites?")
+        savedToFavAlert(message: String(localized: "saveToFav.func"))
     }
     
     func savedToFavAlert(message : String) {
-        let alert = UIAlertController(title: "Saving to Favorites", message: message, preferredStyle: .alert)
-        let actionOne = UIAlertAction(title: "OK", style: .default) { [self] actionOne in
+        
+        let alert = UIAlertController(title: String(localized: "savingProcess.func"), message: message, preferredStyle: .alert)
+        let actionOne = UIAlertAction(title: String(localized: "ok.answer"), style: .default) { [self] actionOne in
             savePostToCoreData()
         }
-        let actionTwo = UIAlertAction(title: "Cancel", style: .default)
+        let actionTwo = UIAlertAction(title: String(localized: "no.answer"), style: .default)
         alert.addAction(actionOne)
         alert.addAction(actionTwo)
-        
-        
         
         UIApplication.topViewController()?.present(alert, animated: true)
     }
     
     func successfulSave() {
-        let alert = UIAlertController(title: "Saved!", message: .none, preferredStyle: .alert)
-        let answer = UIAlertAction(title: "ok", style: .default)
+        
+        let alert = UIAlertController(title: String(localized: "savedAlert"), message: .none, preferredStyle: .alert)
+        let answer = UIAlertAction(title: String(localized: "ok.answer"), style: .default)
         alert.addAction(answer)
         UIApplication.shared.windows.filter { $0.isKeyWindow }.first?.rootViewController?.present(alert, animated: true)
     }
@@ -166,7 +170,8 @@ class PostTableViewCell: UITableViewCell {
         } else {
 //            print("Something wrong with saving post at coreData :(")
             if let idPost = postIndex.firstIndex(of: post!.id) {
-                print("Этот пост уже добавлен в избранное")
+                
+                print(String(localized: "alreadyInFav"))
             }
         }
     }

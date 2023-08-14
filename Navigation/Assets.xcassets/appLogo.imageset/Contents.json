@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "wepik-gradient-news-group-logo-20230814130914ANKR.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+  Navigation
+
+  Created by Ольга Бойко on 14.08.2023.
+  
+*/
+
+"NSLocationWhenInUseUsageDescription" = "Location is needed to find you";

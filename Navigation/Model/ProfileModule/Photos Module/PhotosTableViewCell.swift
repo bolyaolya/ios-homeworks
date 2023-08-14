@@ -7,9 +7,9 @@
 
 import UIKit
 
-class PhotosTableViewCell : UITableViewCell {
+final class PhotosTableViewCell : UITableViewCell {
     
-    //свойства
+    //MARK: - Properties
     
     private lazy var photosView : UIView = {
         let photosView = UIView()
@@ -20,7 +20,7 @@ class PhotosTableViewCell : UITableViewCell {
     
     private lazy var labelPhotos : UILabel = {
         let labelPhotos = UILabel()
-        labelPhotos.text = "Photos"
+        labelPhotos.text = NSLocalizedString("photos.label", comment: "")
         labelPhotos.textColor = .black
         labelPhotos.font = .systemFont(ofSize: 24, weight: .bold)
         labelPhotos.translatesAutoresizingMaskIntoConstraints = false
@@ -79,7 +79,7 @@ class PhotosTableViewCell : UITableViewCell {
         return forthImage
     }()
     
-    //жизненный цикл
+    //MARK: - Life cycle
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -91,7 +91,7 @@ class PhotosTableViewCell : UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //методы
+    //MARK: - Methods
     
     private func layout() {
         setupViews()

@@ -1,0 +1,60 @@
+/* 
+  Localizable.strings
+  Navigation
+
+  Created by Ольга Бойко on 14.08.2023.
+  
+*/
+
+//PhotosTableViewCell
+"photos.label" = "Photos";
+
+//ProfileHeaderView
+"statusButton.title" = "Update status";
+
+//PostTableViewCell
+"saveToFav.func" = "Do you want to save this post to Favorites?";
+"savingProcess.func" = "Saving to Favorites";
+"ok.answer" = "Ok";
+"no.answer" = "Cancel";
+"savedAlert" = "Saved!";
+"alreadyInFav" = "This post is already in Favorites";
+
+//ProfilePostModel
+"stevenK" = "Steven King";
+"bulgakov" = "Mikhail Bulgakov";
+"bulgakovMaster" = "Master and Margarita";
+"bakman" = "Frederick Backman";
+"nervousBakman" = "Nervous people";
+"brawn" = "Dan Brown";
+"infBrawn" = "Inferno";
+
+//FavoritesViewController
+"yourFav" = "Your Favorites";
+"authorSearch" = "By Author:";
+"deleteTitle" = "Delete";
+"searchTitle" = "Search";
+"cancelTitle" = "Cancel";
+
+//LogInViewController
+"loginButtonTitle" = "Login";
+"signupButtonTitle" = "Sign Up";
+"emailPlaceholder" = "Email or phone";
+"passwordPlaceholder" = "Password";
+"userLoginName" = "Testovyi test";
+"userStatus" = "Testovyi status";
+
+//TabBarController
+"profileTitle" = "Profile";
+"favoritesTitle" = "Favorites";
+"mapTitle" = "Map";
+
+
+
+
+
+
+
+
+
+

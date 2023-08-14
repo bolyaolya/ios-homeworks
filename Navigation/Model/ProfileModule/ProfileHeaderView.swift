@@ -10,9 +10,9 @@ import SnapKit
 
 class ProfileHeaderView : UITableViewHeaderFooterView {
     
-    //свойства
+    //MARK: - Properties
     
-    let avatarImageView : UIImageView = {
+    private lazy var avatarImageView : UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "hypno")
         image.layer.borderWidth = 3
@@ -24,7 +24,7 @@ class ProfileHeaderView : UITableViewHeaderFooterView {
         return image
     }()
     
-    let fullNameLabel : UILabel = {
+    private lazy var fullNameLabel : UILabel = {
         let name = UILabel()
         name.text = "Ждун Ждуновский"
         name.font = .systemFont(ofSize: 18, weight: .bold)
@@ -33,10 +33,10 @@ class ProfileHeaderView : UITableViewHeaderFooterView {
         return name
     }()
     
-    let setStatusButton : UIButton = {
+    private lazy var setStatusButton : UIButton = {
         let button = UIButton()
         button.backgroundColor = .systemBlue
-        button.setTitle("Show status", for: .normal)
+        button.setTitle(NSLocalizedString("statusButton.title", comment: ""), for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 4
         button.layer.shadowOffset = CGSize(width: 4, height: 4)
@@ -47,7 +47,7 @@ class ProfileHeaderView : UITableViewHeaderFooterView {
         return button
     }()
     
-    let statusLabel : UILabel = {
+    private lazy var statusLabel : UILabel = {
         let status = UILabel()
         status.text = "Waiting for something..."
         status.font = .systemFont(ofSize: 14, weight: .regular)
@@ -56,7 +56,7 @@ class ProfileHeaderView : UITableViewHeaderFooterView {
         return status
     }()
     
-    let statusTextField : UITextField = {
+    private lazy var statusTextField : UITextField = {
         let statusField = UITextField()
         statusField.backgroundColor = .white
         statusField.layer.borderColor = UIColor.black.cgColor
@@ -71,7 +71,7 @@ class ProfileHeaderView : UITableViewHeaderFooterView {
     
     private var statusText = String()
     
-    //жизненный цикл
+    //MARK: - Life Cycle
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
@@ -82,7 +82,7 @@ class ProfileHeaderView : UITableViewHeaderFooterView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //методы
+    //MARK: - Methods
     
     func setup(user: User) {
         statusLabel.text = user.status
@@ -90,7 +90,7 @@ class ProfileHeaderView : UITableViewHeaderFooterView {
         fullNameLabel.text = user.login
     }
     
-    func addAllSubviews() {
+    private func addAllSubviews() {
         addSubview(avatarImageView)
         addSubview(fullNameLabel)
         addSubview(statusLabel)
@@ -98,14 +98,14 @@ class ProfileHeaderView : UITableViewHeaderFooterView {
         addSubview(setStatusButton)
     }
     
-    func layout() {
+    private func layout() {
         addAllSubviews()
         setupConstraints()
         setStatusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         statusTextField.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
     }
     
-    func setupConstraints() {
+    private func setupConstraints() {
         
         avatarImageView.snp.makeConstraints { make in
             make.height.equalTo(100)
@@ -113,42 +113,42 @@ class ProfileHeaderView : UITableViewHeaderFooterView {
             make.top.equalToSuperview().inset(19)
             make.leading.equalToSuperview().inset(16)
         }
-
+        
         fullNameLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(27)
             make.leading.equalTo(avatarImageView.snp.trailing).inset(-16)
             make.height.equalTo(18)
         }
-
+        
         statusLabel.snp.makeConstraints { make in
             make.top.equalTo(fullNameLabel.snp.bottom).inset(-16)
             make.leading.equalTo(avatarImageView.snp.trailing).inset(-16)
         }
-
+        
         statusTextField.snp.makeConstraints { make in
             make.height.equalTo(40)
             make.leading.equalTo(avatarImageView.snp.trailing).inset(-16)
             make.top.equalTo(statusLabel.snp.bottom).inset(-20)
             make.trailing.equalToSuperview().inset(16)
         }
-
+        
         setStatusButton.snp.makeConstraints { make in
             make.height.equalTo(40)
             make.top.equalTo(statusTextField.snp.bottom).inset(-20)
             make.leading.trailing.equalToSuperview().inset(16)
-
         }
-        
     }
     
-    @objc func statusTextChanged(_ textField: UITextField) {
+    @objc
+    private func statusTextChanged(_ textField: UITextField) {
         if let text = textField.text {
-                statusText = text
+            statusText = text
         }
     }
     
-    @objc func buttonPressed() {
-                statusLabel.text = statusText
-                statusTextField.text = ""
+    @objc
+    private func buttonPressed() {
+        statusLabel.text = statusText
+        statusTextField.text = ""
     }
 }

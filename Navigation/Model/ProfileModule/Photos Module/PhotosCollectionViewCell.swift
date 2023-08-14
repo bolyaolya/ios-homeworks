@@ -7,9 +7,9 @@
 
 import UIKit
 
-class PhotosCollectionViewCell : UICollectionViewCell {
-
-    //свойства
+final class PhotosCollectionViewCell : UICollectionViewCell {
+    
+    //MARK: - Properties
     
     lazy var imageView : UIImageView = {
         let image = UIImageView()
@@ -19,7 +19,7 @@ class PhotosCollectionViewCell : UICollectionViewCell {
         return image
     }()
     
-    //жизненный цикл
+    //MARK: - Life cycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,7 +30,7 @@ class PhotosCollectionViewCell : UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //методы
+    //MARK: - Methods
     
     private func layout() {
         addSubview(imageView)

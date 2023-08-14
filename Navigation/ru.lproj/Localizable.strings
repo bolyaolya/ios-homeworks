@@ -1,0 +1,50 @@
+/* 
+  Localizable.strings
+  Navigation
+
+  Created by Ольга Бойко on 14.08.2023.
+  
+*/
+
+//PhotosTableViewCell
+"photos.label" = "Фото";
+
+//ProfileHeaderView
+"statusButton.title" = "Обновить статус";
+
+//PostTableViewCell
+"saveToFav.func" = "Добавить пост в Избранное?";
+"savingProcess.func" = "Сохранение в Избранное";
+"ok.answer" = "Хорошо";
+"no.answer" = "Отмена";
+"savedAlert" = "Сохранено!";
+"alreadyInFav" = "Этот пост уже добавлен в Избранное";
+
+//ProfilePostModel
+"stevenK" = "Стивен Кинг";
+"bulgakov" = "Михаил Булгаков";
+"bulgakovMaster" = "Мастер и Маргарита";
+"bakman" = "Фредерик Бакман";
+"nervousBakman" = "Тревожные люди";
+"brawn" = "Дэн Браун";
+"infBrawn" = "Инферно";
+
+//FavoritesViewController
+"yourFav" = "Ваше Избранное";
+"authorSearch" = "По автору:";
+"deleteTitle" = "Удалить";
+"searchTitle" = "Поиск";
+"cancelTitle" = "Отмена";
+
+//LogInViewController
+"loginButtonTitle" = "Войти";
+"signupButtonTitle" = "Зарегистрироваться";
+"emailPlaceholder" = "Эл. почта или телефон";
+"passwordPlaceholder" = "Пароль";
+"userLoginName" = "Тестовый тест";
+"userStatus" = "Тестовый статус";
+
+//TabBarController
+"profileTitle" = "Профиль";
+"favoritesTitle" = "Избранное";
+"mapTitle" = "Карта";
