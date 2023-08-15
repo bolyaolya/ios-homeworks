@@ -19,7 +19,7 @@ final class TabBarController: UITabBarController {
 #if DEBUG
     var userLogin : TestUserService = TestUserService(user: User(login: "Olya Boyko", avatar: UIImage(named: "avatar") ?? UIImage(), status: "Waiting for smth"))
 #else
-    var userLogin : CurrentUserService = CurrentUserService(user: User(login: "Test Test", avatar: UIImage(named: "hypno") ?? UIImage(), status: "Test"))
+    var userLogin : CurrentUserService = CurrentUserService(user: User(login: "userLoginName".localized, avatar: UIImage(named: "hypno") ?? UIImage(), status: "userStatus".localized))
 #endif
     
     var userIsLogin : User = User(login: "", avatar: UIImage(), status: "")
@@ -51,9 +51,9 @@ final class TabBarController: UITabBarController {
         self.viewControllers = [secondTabNavController, thirdTabNavController, forthTabNavController]
         
 //        let item1 = UITabBarItem(title: "Feed", image: UIImage(systemName: "newspaper"), tag: 0)
-        let item2 = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), tag: 0)
-        let item3 = UITabBarItem(title: "Favorites", image: UIImage(systemName: "heart.circle"), tag: 1)
-        let item4 = UITabBarItem(title: "Map", image: UIImage(systemName: "map.circle"), tag: 2)
+        let item2 = UITabBarItem(title: "profileTitle".localized, image: UIImage(systemName: "person"), tag: 0)
+        let item3 = UITabBarItem(title: "favoritesTitle".localized, image: UIImage(systemName: "heart.circle"), tag: 1)
+        let item4 = UITabBarItem(title: "mapTitle".localized, image: UIImage(systemName: "map.circle"), tag: 2)
         
 //        firstTabNavController.tabBarItem = item1
         secondTabNavController.tabBarItem = item2

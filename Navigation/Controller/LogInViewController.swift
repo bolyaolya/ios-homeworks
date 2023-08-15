@@ -50,15 +50,16 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
         return logo
     }()
     
-    private lazy var loginButton : CustomButton = CustomButton(title: "Log In",
-                                                               backgroundColor: UIColor.init(patternImage: UIImage(named: "blue_pixel")!),
-                                                               cornerRadius: 10)
+    let userLoginName = "userLoginName".localized
+    let userStatus = "userStatus".localized
+    
+    private lazy var loginButton : CustomButton = CustomButton(title: "loginButtonTitle".localized, backgroundColor: UIColor.init(patternImage: UIImage(named: "blue_pixel")!), cornerRadius: 10)
     
     lazy var email : UITextField = {
         let email = UITextField()
         email.textColor = .black
         email.font = .systemFont(ofSize: 16, weight: .regular)
-        email.placeholder = "Email or phone"
+        email.placeholder = "emailPlaceholder".localized
         email.keyboardType = .emailAddress
         email.clearButtonMode = .whileEditing
         email.returnKeyType = .continue
@@ -74,7 +75,7 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
         let password = UITextField()
         password.textColor = .black
         password.font = .systemFont(ofSize: 16, weight: .regular)
-        password.placeholder = "Password"
+        password.placeholder = "passwordPlaceholder".localized
         password.clearButtonMode = .whileEditing
         password.returnKeyType = .done
         password.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: password.frame.height))
@@ -128,9 +129,9 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
         
         Auth.auth().addStateDidChangeListener { auth, user in
             if user == nil {
-                self.loginButton.setTitle("Зарегистрироваться", for: .normal)
+                self.loginButton.setTitle("signupButtonTitle".localized, for: .normal)
             } else {
-                self.loginButton.setTitle("Войти", for: .normal)
+                self.loginButton.setTitle("loginButtonTitle".localized, for: .normal)
             }
         }
         
@@ -258,7 +259,7 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
 #if DEBUG
             self.userLogin = TestUserService(user: User(login: "Olya Boyko", avatar: UIImage(named: "avatar") ?? UIImage(), status: "Waiting for smth"))
 #else
-            self.userLogin = CurrentUserService(user: User(login: "Test Test", avatar: UIImage(named: "hypno") ?? UIImage(), status: "Test"))
+            self.userLogin = CurrentUserService(user: User(login: self.userLoginName, avatar: UIImage(named: "hypno") ?? UIImage(), status: self.userStatus))
 #endif
             
             CheckerService().checkCredentials(email: enteredEmail, password: enteredPassword) { result in
@@ -296,7 +297,7 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
         #if DEBUG
             userLogin = TestUserService(user: User(login: "Olya Boyko", avatar: UIImage(named: "avatar") ?? UIImage(), status: "Waiting for smth"))
         #else
-            userLogin = CurrentUserService(user: User(login: "Test Test", avatar: UIImage(named: "hypno") ?? UIImage(), status: "Test"))
+            userLogin = CurrentUserService(user: User(login: self.userLoginName, avatar: UIImage(named: "hypno") ?? UIImage(), status: self.userStatus))
         #endif
             
 //            let profileVC = ProfileViewController()
