@@ -34,9 +34,9 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
         stackView.axis = .vertical
         stackView.distribution = .equalCentering
         stackView.alignment = .center
-        stackView.backgroundColor = .systemGray6
+        stackView.backgroundColor = colorSecondaryBackground
         stackView.layer.borderWidth = 0.5
-        stackView.layer.borderColor = UIColor.lightGray.cgColor
+        stackView.layer.borderColor = colorBorderColor.cgColor
         stackView.layer.cornerRadius = 10
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
@@ -57,9 +57,9 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
     
     lazy var email : UITextField = {
         let email = UITextField()
-        email.textColor = .black
         email.font = .systemFont(ofSize: 16, weight: .regular)
         email.placeholder = "emailPlaceholder".localized
+        email.text = "gadokeks@mail.ru"
         email.keyboardType = .emailAddress
         email.clearButtonMode = .whileEditing
         email.returnKeyType = .continue
@@ -73,9 +73,9 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
     
     lazy var password : UITextField = {
         let password = UITextField()
-        password.textColor = .black
         password.font = .systemFont(ofSize: 16, weight: .regular)
         password.placeholder = "passwordPlaceholder".localized
+        password.text = "12345678"
         password.clearButtonMode = .whileEditing
         password.returnKeyType = .done
         password.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: password.frame.height))
@@ -121,7 +121,7 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
     //MARK: методы
     
     private func setupUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = colorMainBackground
         setupViews()
         setupConstraints()
         setupGestures()

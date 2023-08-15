@@ -12,7 +12,7 @@ class CustomButton : UIButton {
     var actionButton : () -> Void = {}
     
     //кастомный инициализатор с параметрами кнопки
-    init(title: String, backgroundColor : UIColor = .systemBlue, titleColor: UIColor = .white, cornerRadius : CGFloat = 10, borderColor : CGColor = UIColor.white.cgColor, borderWidth : CGFloat = 3) {
+    init(title: String, backgroundColor : UIColor = .systemBlue, titleColor: UIColor = .white, cornerRadius : CGFloat = 10, borderColor : CGColor = colorBorderColor.cgColor, borderWidth : CGFloat = 3) {
         super.init(frame: .zero)
         self.setTitle(title, for: .normal)
         self.setTitleColor(UIColor.white, for: .normal)

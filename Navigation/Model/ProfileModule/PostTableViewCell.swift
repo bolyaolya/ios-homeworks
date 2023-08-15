@@ -26,7 +26,7 @@ final class PostTableViewCell: UITableViewCell {
     
     private lazy var authorLabel : UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = colorTextColor
         label.backgroundColor = .clear
         label.bounds.size.height = 44
         label.numberOfLines = 2
@@ -40,7 +40,7 @@ final class PostTableViewCell: UITableViewCell {
         description.font = .systemFont(ofSize: 14, weight: .regular)
         description.backgroundColor = .clear
         description.bounds.size.height = 44
-        description.textColor = .systemGray
+        description.textColor = colorTextColor
         description.numberOfLines = 0
         description.translatesAutoresizingMaskIntoConstraints = false
         return description
@@ -58,7 +58,7 @@ final class PostTableViewCell: UITableViewCell {
         let likes = UILabel()
         likes.font = .systemFont(ofSize: 16)
         likes.textAlignment = .left
-        likes.textColor = .black
+        likes.textColor = colorSecondaryTextColor
         likes.translatesAutoresizingMaskIntoConstraints = false
         return likes
     }()
@@ -67,7 +67,7 @@ final class PostTableViewCell: UITableViewCell {
         let views = UILabel()
         views.font = .systemFont(ofSize: 16)
         views.textAlignment = .right
-        views.textColor = .black
+        views.textColor = colorSecondaryTextColor
         views.translatesAutoresizingMaskIntoConstraints = false
         return views
     }()
@@ -145,7 +145,7 @@ final class PostTableViewCell: UITableViewCell {
         let actionOne = UIAlertAction(title: "ok.answer".localized, style: .default) { [self] actionOne in
             savePostToCoreData()
         }
-        let actionTwo = UIAlertAction(title: "no.answer", style: .default)
+        let actionTwo = UIAlertAction(title: "no.answer".localized, style: .default)
         alert.addAction(actionOne)
         alert.addAction(actionTwo)
         

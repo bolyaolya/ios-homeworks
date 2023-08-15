@@ -32,7 +32,7 @@ final class FavoritesViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "yourFav".localized
-        view.backgroundColor = .white
+        view.backgroundColor = colorMainBackground
         
         let searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchByAuthor))
         let deleteButton = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(deleteFilter))
