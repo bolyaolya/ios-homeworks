@@ -61,6 +61,7 @@
 		0CEE3BD22A0B944100B48B08 /* LoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEE3BD12A0B944100B48B08 /* LoginFactory.swift */; };
 		0CEE3BD42A0B947E00B48B08 /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEE3BD32A0B947E00B48B08 /* LoginInspector.swift */; };
 		0CEE3BD62A0B94FA00B48B08 /* LoginViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEE3BD52A0B94FA00B48B08 /* LoginViewControllerDelegate.swift */; };
+		0CF340612A8B62DB00477594 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF340602A8B62DB00477594 /* Extension.swift */; };
 		0CF995ED2A1663F7007C244E /* BruteForce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF995EC2A1663F7007C244E /* BruteForce.swift */; };
 /* End PBXBuildFile section */
 
@@ -144,6 +145,7 @@
 		0CEE3BD12A0B944100B48B08 /* LoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFactory.swift; sourceTree = "<group>"; };
 		0CEE3BD32A0B947E00B48B08 /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
 		0CEE3BD52A0B94FA00B48B08 /* LoginViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewControllerDelegate.swift; sourceTree = "<group>"; };
+		0CF340602A8B62DB00477594 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		0CF995EC2A1663F7007C244E /* BruteForce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BruteForce.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -298,6 +300,7 @@
 				014C731C28BE1A6B00C284A2 /* ProfileModule */,
 				0146D8B429851E620084D43A /* LogInModule */,
 				01EE9F2C28AAD7CD00D96A3D /* Feed Module */,
+				0CF340602A8B62DB00477594 /* Extension.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -534,6 +537,7 @@
 				0167ED3729670D3000664CAB /* PostTableViewCell.swift in Sources */,
 				0C0792C32A83E9F000EE9D2E /* MapViewController.swift in Sources */,
 				0C5BFC692A2A3EBC00E90112 /* AppConfiguration.swift in Sources */,
+				0CF340612A8B62DB00477594 /* Extension.swift in Sources */,
 				01EE9F2E28AAD7E300D96A3D /* FeedViewController.swift in Sources */,
 				0CEE3BD42A0B947E00B48B08 /* LoginInspector.swift in Sources */,
 				0CF995ED2A1663F7007C244E /* BruteForce.swift in Sources */,

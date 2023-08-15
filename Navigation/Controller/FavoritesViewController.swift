@@ -31,7 +31,7 @@ final class FavoritesViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = String(localized: "yourFav")
+        title = "yourFav".localized
         view.backgroundColor = .white
         
         let searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchByAuthor))
@@ -55,7 +55,7 @@ final class FavoritesViewController : UIViewController {
     
     @objc
     private func searchByAuthor() {
-        searchField(title: String(localized: "authorSearch"), actionHandler: { text in
+        searchField(title: "authorSearch".localized, actionHandler: { text in
             if let result = text {
                 CoreDataManager.defaultManager.getSearchResult(by: result)
                 self.tableView.reloadData()
@@ -90,7 +90,7 @@ extension FavoritesViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: String(localized: "deleteTitle")) { (action, swipeButtonView, completion) in
+        let deleteAction = UIContextualAction(style: .destructive, title: "deleteTitle".localized) { (action, swipeButtonView, completion) in
             CoreDataManager.defaultManager.deletePostFromFav(post: CoreDataManager.defaultManager.posts[indexPath.row])
             CoreDataManager().reloadPosts()
             self.tableView.reloadData()
@@ -106,8 +106,8 @@ extension UIViewController {
                      subtitle : String? = nil,
                      inputText : String? = nil,
                      inputKeyboardType : UIKeyboardType = UIKeyboardType.default,
-                     actionTitle : String? = String(localized: "searchTitle"),
-                     cancelTitle : String? = String(localized: "cancelTitle"),
+                     actionTitle : String? = "searchTitle".localized,
+                     cancelTitle : String? = "cancelTitle".localized,
                      cancelHandler: ((UIAlertAction) -> Swift.Void)? = nil,
                      actionHandler: ((_ text: String?) -> Void)? = nil) {
         

@@ -50,16 +50,16 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
         return logo
     }()
     
-    let userLoginName = NSLocalizedString("userLoginName", comment: "")
-    let userStatus = NSLocalizedString("userStatus", comment: "")
+    let userLoginName = "userLoginName".localized
+    let userStatus = "userStatus".localized
     
-    private lazy var loginButton : CustomButton = CustomButton(title: String(localized: "loginButtonTitle"), backgroundColor: UIColor.init(patternImage: UIImage(named: "blue_pixel")!), cornerRadius: 10)
+    private lazy var loginButton : CustomButton = CustomButton(title: "loginButtonTitle".localized, backgroundColor: UIColor.init(patternImage: UIImage(named: "blue_pixel")!), cornerRadius: 10)
     
     lazy var email : UITextField = {
         let email = UITextField()
         email.textColor = .black
         email.font = .systemFont(ofSize: 16, weight: .regular)
-        email.placeholder = String(localized: "emailPlaceholder")
+        email.placeholder = "emailPlaceholder".localized
         email.keyboardType = .emailAddress
         email.clearButtonMode = .whileEditing
         email.returnKeyType = .continue
@@ -75,7 +75,7 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
         let password = UITextField()
         password.textColor = .black
         password.font = .systemFont(ofSize: 16, weight: .regular)
-        password.placeholder = String(localized: "passwordPlaceholder")
+        password.placeholder = "passwordPlaceholder".localized
         password.clearButtonMode = .whileEditing
         password.returnKeyType = .done
         password.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: password.frame.height))
@@ -129,9 +129,9 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
         
         Auth.auth().addStateDidChangeListener { auth, user in
             if user == nil {
-                self.loginButton.setTitle(String(localized: "signupButtonTitle"), for: .normal)
+                self.loginButton.setTitle("signupButtonTitle".localized, for: .normal)
             } else {
-                self.loginButton.setTitle(String(localized: "loginButtonTitle"), for: .normal)
+                self.loginButton.setTitle("loginButtonTitle".localized, for: .normal)
             }
         }
         

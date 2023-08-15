@@ -21,8 +21,8 @@ final class PostTableViewCell: UITableViewCell {
     
     private var post : Post?
     
-    let localizedLikes = NSLocalizedString("countLikes", comment: "")
-    let localizedViews = NSLocalizedString("countViews", comment: "")
+    let localizedLikes = "countLikes".localized
+    let localizedViews = "countViews".localized
     
     private lazy var authorLabel : UILabel = {
         let label = UILabel()
@@ -136,16 +136,16 @@ final class PostTableViewCell: UITableViewCell {
     
     @objc func postTapped() {
 //        savedToFavAlert(message: "Do you want to save this post to Favorites?")
-        savedToFavAlert(message: String(localized: "saveToFav.func"))
+        savedToFavAlert(message: "saveToFav.func".localized)
     }
     
     func savedToFavAlert(message : String) {
         
-        let alert = UIAlertController(title: String(localized: "savingProcess.func"), message: message, preferredStyle: .alert)
-        let actionOne = UIAlertAction(title: String(localized: "ok.answer"), style: .default) { [self] actionOne in
+        let alert = UIAlertController(title: "savingProcess.func".localized, message: message, preferredStyle: .alert)
+        let actionOne = UIAlertAction(title: "ok.answer".localized, style: .default) { [self] actionOne in
             savePostToCoreData()
         }
-        let actionTwo = UIAlertAction(title: String(localized: "no.answer"), style: .default)
+        let actionTwo = UIAlertAction(title: "no.answer", style: .default)
         alert.addAction(actionOne)
         alert.addAction(actionTwo)
         
@@ -154,8 +154,8 @@ final class PostTableViewCell: UITableViewCell {
     
     func successfulSave() {
         
-        let alert = UIAlertController(title: String(localized: "savedAlert"), message: .none, preferredStyle: .alert)
-        let answer = UIAlertAction(title: String(localized: "ok.answer"), style: .default)
+        let alert = UIAlertController(title: "savedAlert".localized, message: .none, preferredStyle: .alert)
+        let answer = UIAlertAction(title: "ok.answer".localized, style: .default)
         alert.addAction(answer)
         UIApplication.shared.windows.filter { $0.isKeyWindow }.first?.rootViewController?.present(alert, animated: true)
     }

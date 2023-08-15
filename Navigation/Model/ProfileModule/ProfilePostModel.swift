@@ -19,8 +19,8 @@ import UIKit
     }
 
     public var post : [Post] = [
-        Post(author: String(localized: "stevenK"), description: "11/22/63", image: "112263", likes: 3048, views: 4044, id: 0),
-        Post(author: String(localized: "bulgakov"), description: String(localized: "bulgakovMaster"), image: "master", likes: 2048, views: 144, id: 1),
-        Post(author: String(localized: "bakman"), description: String(localized: "nervousBakman"), image: "trevozhnye", likes: 1033, views: 2048, id: 2),
-        Post(author: String(localized: "brawn"), description: String(localized: "infBrawn"), image: "daVinci", likes: 2567, views: 5999, id: 3)
+        Post(author: "stevenK".localized, description: "11/22/63", image: "112263", likes: 3048, views: 4044, id: 0),
+        Post(author: "bulgakov".localized, description: "bulgakovMaster".localized, image: "master", likes: 2048, views: 144, id: 1),
+        Post(author: "bakman".localized, description: "nervousBakman".localized, image: "trevozhnye", likes: 1033, views: 2048, id: 2),
+        Post(author: "brawn".localized, description: "infBrawn".localized, image: "daVinci", likes: 2567, views: 5999, id: 3)
     ]
