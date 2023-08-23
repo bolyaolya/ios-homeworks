@@ -16,7 +16,7 @@ class ProfileHeaderView : UITableViewHeaderFooterView {
         let image = UIImageView()
         image.image = UIImage(named: "hypno")
         image.layer.borderWidth = 3
-        image.layer.borderColor = UIColor.white.cgColor
+        image.layer.borderColor = colorBorderColor.cgColor
         image.clipsToBounds = true
         image.layer.cornerRadius = 25
         image.isUserInteractionEnabled = true
@@ -28,7 +28,7 @@ class ProfileHeaderView : UITableViewHeaderFooterView {
         let name = UILabel()
         name.text = "Ждун Ждуновский"
         name.font = .systemFont(ofSize: 18, weight: .bold)
-        name.textColor = .black
+        name.textColor = colorTextColor
         name.translatesAutoresizingMaskIntoConstraints = false
         return name
     }()
@@ -41,7 +41,7 @@ class ProfileHeaderView : UITableViewHeaderFooterView {
         button.layer.cornerRadius = 4
         button.layer.shadowOffset = CGSize(width: 4, height: 4)
         button.layer.shadowRadius = 4
-        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowColor = colorTextColor.cgColor
         button.layer.shadowOpacity = 0.7
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -51,7 +51,7 @@ class ProfileHeaderView : UITableViewHeaderFooterView {
         let status = UILabel()
         status.text = "Waiting for something..."
         status.font = .systemFont(ofSize: 14, weight: .regular)
-        status.textColor = .gray
+        status.textColor = colorTextColor
         status.translatesAutoresizingMaskIntoConstraints = false
         return status
     }()
@@ -59,11 +59,11 @@ class ProfileHeaderView : UITableViewHeaderFooterView {
     private lazy var statusTextField : UITextField = {
         let statusField = UITextField()
         statusField.backgroundColor = .white
-        statusField.layer.borderColor = UIColor.black.cgColor
+        statusField.layer.borderColor = colorBorderColor.cgColor
         statusField.layer.borderWidth = 1
         statusField.layer.cornerRadius = 12
         statusField.font = .systemFont(ofSize: 15, weight: .regular)
-        statusField.textColor = .black
+        statusField.textColor = colorTextColor
         statusField.textAlignment = .center
         statusField.translatesAutoresizingMaskIntoConstraints = false
         return statusField

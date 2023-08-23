@@ -10,7 +10,7 @@ import iOSIntPackage
 
 class PhotosViewController : UIViewController {
     
-    //свойства
+    //MARK: - Properties
     
     enum Constants {
         static let defaultCellID = "DefaultCellID"
@@ -22,9 +22,9 @@ class PhotosViewController : UIViewController {
     }
     
     let imagePublisher = ImagePublisherFacade()
-         private var dataSource = photos.makePhotoArray()
-         private var imagesArray = [UIImage]()
-         private var localImages = [UIImage]()
+    private var dataSource = photos.makePhotoArray()
+    private var imagesArray = [UIImage]()
+    private var localImages = [UIImage]()
     
     private lazy var layout : UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
@@ -72,7 +72,7 @@ class PhotosViewController : UIViewController {
         }
     }
     
-    //жизненный цикл
+    //MARK: - Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,48 +88,48 @@ class PhotosViewController : UIViewController {
         imagePublisher.rechargeImageLibrary()
     }
     
-    // методы
+    //MARK: - Methods
     
     private func setupView() {
-        view.addSubview(collectionView)
-        view.backgroundColor = .white
-        setupConstraints()
+        view.backgroundColor = colorMainBackground
         setupNavBarTitle()
+        view.addSubview(collectionView)
+        setupConstraints()
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-             self.collectionView.topAnchor.constraint(equalTo: self.view.topAnchor),
-             self.collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-             self.collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-             self.collectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            self.collectionView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            self.collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            self.collectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
     }
     
     private func setupImages() {
-             dataSource.forEach {
-                 guard let image = UIImage(named: $0.image) else { return }
-                 localImages.append(image)
-             }
-             imagePublisher.subscribe(self)
-             imagePublisher.addImagesWithTimer(time: 1.0, repeat: 20, userImages: localImages)
-         }
+        dataSource.forEach {
+            guard let image = UIImage(named: $0.image) else { return }
+            localImages.append(image)
+        }
+        imagePublisher.subscribe(self)
+        imagePublisher.addImagesWithTimer(time: 1.0, repeat: 20, userImages: localImages)
+    }
     
     private func setupNavBarTitle() {
         navigationItem.title = "Photo Gallery"
     }
 }
 
-extension PhotosViewController : UICollectionViewDataSource ,UICollectionViewDelegateFlowLayout, ImageLibrarySubscriber {
-
-     func receive(images: [UIImage]) {
-         imagesArray = images
-         collectionView.reloadData()
-     }
+extension PhotosViewController : UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ImageLibrarySubscriber {
+    
+    func receive(images: [UIImage]) {
+        imagesArray = images
+        collectionView.reloadData()
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-             return imagesArray.count
-         }
+        return imagesArray.count
+    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.photosCellID, for: indexPath) as? PhotosCollectionViewCell
@@ -139,8 +139,8 @@ extension PhotosViewController : UICollectionViewDataSource ,UICollectionViewDel
         }
         
         let image = imagesArray[indexPath.row]
-            cell.imageView.image = image
-            return cell
+        cell.imageView.image = image
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

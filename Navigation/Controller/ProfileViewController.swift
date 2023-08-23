@@ -34,9 +34,8 @@ class ProfileViewController : UIViewController {
     
     private lazy var tableView : UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
-        tableView.backgroundColor = .white
+        tableView.backgroundColor = colorSecondaryBackground
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.backgroundColor = .white
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: "ProfileCellID")
@@ -108,7 +107,7 @@ class ProfileViewController : UIViewController {
         #if DEBUG
         view.backgroundColor = .red
         #else
-        view.backgroundColor = .white
+        view.backgroundColor = colorMainBackground
         #endif
         view.addSubview(tableView)
         view.addSubview(blurView)

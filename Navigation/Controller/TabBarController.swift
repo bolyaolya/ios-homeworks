@@ -60,8 +60,8 @@ final class TabBarController: UITabBarController {
         thirdTabNavController.tabBarItem = item3
         forthTabNavController.tabBarItem = item4
         
-        UITabBar.appearance().tintColor = .systemBlue
-        UITabBar.appearance().backgroundColor = .white
+        UITabBar.appearance().tintColor = colorTabBarTintColor
+        UITabBar.appearance().backgroundColor = colorTabBarBackground
     }
 }
 

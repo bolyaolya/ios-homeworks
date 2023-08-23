@@ -17,7 +17,7 @@ class PostViewController : UIViewController {
         let button = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(infoView))
         navigationItem.rightBarButtonItem = button
         self.title = fromFirstTab.postTitle.title
-        self.view.backgroundColor = .lightGray
+        self.view.backgroundColor = colorSecondaryBackground
     }
     
     @objc func infoView() {
