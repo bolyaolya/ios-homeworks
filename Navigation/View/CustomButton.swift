@@ -17,6 +17,7 @@ class CustomButton : UIButton {
         self.setTitle(title, for: .normal)
         self.setTitleColor(UIColor.white, for: .normal)
         self.backgroundColor = backgroundColor
+        self.tintColor = .white
         self.layer.cornerRadius = cornerRadius
         self.layer.borderColor = borderColor
         self.layer.borderWidth = borderWidth

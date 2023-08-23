@@ -7,3 +7,4 @@
 */
 
 "NSLocationWhenInUseUsageDescription" = "Локация нужна для определения вашего местоположения";
+"NSFaceIDUsageDescription" = "Face ID нужен для быстрого входа в приложение";
