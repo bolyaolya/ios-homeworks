@@ -13,7 +13,12 @@ import FirebaseAuth
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
+    let localNS = LocalNotificationsService()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        localNS.registerForLatestUpdatesIfPossible()
+        
         FirebaseApp.configure()
         return true
     }

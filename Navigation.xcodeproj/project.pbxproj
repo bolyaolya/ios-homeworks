@@ -48,6 +48,7 @@
 		0C5BB7E32A7027D4006CFE45 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0C5BB7E22A7027D4006CFE45 /* RealmSwift */; };
 		0C5BFC672A2A3EA800E90112 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5BFC662A2A3EA800E90112 /* NetworkService.swift */; };
 		0C5BFC692A2A3EBC00E90112 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5BFC682A2A3EBC00E90112 /* AppConfiguration.swift */; };
+		0C91EDB72A93C11A00A2C2CF /* LocalNotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C91EDB62A93C11A00A2C2CF /* LocalNotificationsService.swift */; };
 		0C969D2C2A41A4EC00715D11 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 0C969D2B2A41A4EC00715D11 /* FirebaseAuth */; };
 		0C969D302A41AF3A00715D11 /* CheckerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C969D2F2A41AF3A00715D11 /* CheckerService.swift */; };
 		0C9BF33C2A7136FF0053684A /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9BF33B2A7136FF0053684A /* RealmModel.swift */; };
@@ -134,6 +135,7 @@
 		0C4D82202A0290520090D4E8 /* MyLoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLoginFactory.swift; sourceTree = "<group>"; };
 		0C5BFC662A2A3EA800E90112 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		0C5BFC682A2A3EBC00E90112 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
+		0C91EDB62A93C11A00A2C2CF /* LocalNotificationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationsService.swift; sourceTree = "<group>"; };
 		0C969D2F2A41AF3A00715D11 /* CheckerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckerService.swift; sourceTree = "<group>"; };
 		0C9BF33B2A7136FF0053684A /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		0C9BF33D2A71370E0053684A /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
@@ -273,6 +275,7 @@
 				0C9BF33A2A7136EB0053684A /* Realm Service */,
 				0CF995EB2A1663E2007C244E /* BruteForce */,
 				0C38ECBB2A72C0D30002D6F3 /* CoreData */,
+				0C91EDB62A93C11A00A2C2CF /* LocalNotificationsService.swift */,
 			);
 			path = ServiceLayer;
 			sourceTree = "<group>";
@@ -552,6 +555,7 @@
 				0CEE3BD22A0B944100B48B08 /* LoginFactory.swift in Sources */,
 				0CEE3BD62A0B94FA00B48B08 /* LoginViewControllerDelegate.swift in Sources */,
 				0CEE3BCA2A0B897500B48B08 /* loginCoordinator.swift in Sources */,
+				0C91EDB72A93C11A00A2C2CF /* LocalNotificationsService.swift in Sources */,
 				014C732028BE1AB900C284A2 /* ProfileViewController.swift in Sources */,
 				0C4D821F2A0280EC0090D4E8 /* Checker.swift in Sources */,
 				01C137CE28A926DC003B5405 /* AppDelegate.swift in Sources */,
