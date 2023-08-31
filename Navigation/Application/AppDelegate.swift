@@ -13,7 +13,14 @@ import FirebaseAuth
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
+    let localNS = LocalNotificationsService()
+    
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        localNS.registerForLatestUpdatesIfPossible()
+        localNS.center.delegate = self
+        
         FirebaseApp.configure()
         return true
     }
@@ -23,6 +30,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             try Auth.auth().signOut()
         } catch {}
     }
-    
 }
 
