@@ -11,17 +11,17 @@ import RealmSwift
 
 final class LogInViewController : UIViewController, UITextFieldDelegate {
     
-    //MARK: свойства
+    //MARK: - Properties
     
     var loginDelegate : LoginViewControllerDelegate?
     
     var realmManager = RealmManager()
     
-    #if DEBUG
+#if DEBUG
     var userLogin : TestUserService?
-    #else
+#else
     var userLogin : CurrentUserService?
-    #endif
+#endif
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -54,6 +54,8 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
     let userStatus = "userStatus".localized
     
     private lazy var loginButton : CustomButton = CustomButton(title: "loginButtonTitle".localized, backgroundColor: UIColor.init(patternImage: UIImage(named: "blue_pixel")!), cornerRadius: 10)
+    
+    private lazy var loginButtonBiometric : CustomButton = CustomButton(title: "   Войти с помощью", backgroundColor: UIColor.init(patternImage: UIImage(named: "blue_pixel")!), cornerRadius: 10)
     
     lazy var email : UITextField = {
         let email = UITextField()
@@ -94,7 +96,7 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
         return horizontalLine
     }()
     
-    //MARK: жизненный цикл
+    //MARK: - Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,6 +108,15 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
         super.viewWillAppear(animated)
         
         userVerification()
+        let typeOfBiometry = LocalAuthorizationService().canEvaluate()
+        
+        if typeOfBiometry == 2 {
+            loginButtonBiometric.setImage(UIImage(systemName: "faceid"), for: .normal)
+        } else if typeOfBiometry == 1 {
+            loginButtonBiometric.setImage(UIImage(systemName: "touchid"), for: .normal)
+        } else {
+            loginButtonBiometric.isHidden = true
+        }
         
         // наблюдаем за уведомлениями об появлении или исчезнавении клавиатуры
         NotificationCenter.default.addObserver(self,
@@ -118,7 +129,7 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
                                                object: nil)
     }
     
-    //MARK: методы
+    //MARK: - Methods
     
     private func setupUI() {
         view.backgroundColor = colorMainBackground
@@ -134,8 +145,8 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
                 self.loginButton.setTitle("loginButtonTitle".localized, for: .normal)
             }
         }
-        
-        if loginButton.isEnabled || loginButton.isSelected || loginButton.isHighlighted { loginButton.alpha = 0.8 }
+//
+//        if loginButton.isEnabled || loginButton.isSelected || loginButton.isHighlighted { loginButton.alpha = 0.8 }
     }
     
     private func setupViews() {
@@ -143,26 +154,27 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
         scrollView.addSubview(logo)
         scrollView.addSubview(stackView)
         scrollView.addSubview(loginButton)
+        scrollView.addSubview(loginButtonBiometric)
         stackView.addArrangedSubview(email)
         stackView.addArrangedSubview(horizontalLine)
         stackView.addArrangedSubview(password)
     }
     
-    // функция для обработки тапа и сокрытия клавиатуры
     private func setupGestures() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.hideKeyboard))
         self.view.addGestureRecognizer(tapGesture)
     }
     
     // функция когда скрывает клавиатура, тут мы все считаем и определяем перекрытие
-    @objc func didShowKeyboard(_ notification: Notification){
+    @objc
+    func didShowKeyboard(_ notification: Notification){
         
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
             
             // считаем нужную точку и проверяем перекрывает ли клавиатура кнопку
-            let loginButtonBottomPointY = loginButton.frame.origin.y + loginButton.frame.height
+            let loginButtonBottomPointY = loginButtonBiometric.frame.origin.y + loginButtonBiometric.frame.height
             
             let keyboardOriginY = scrollView.frame.height - keyboardHeight
             
@@ -175,16 +187,19 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
     }
     
     // функции скрытия клавиатуры
-    @objc func didHideKeyboard(_ notification: Notification){
+    @objc
+    func didHideKeyboard(_ notification: Notification){
         self.hideKeyboard()
     }
     
-    @objc func forceHidingKeyboard() {
+    @objc
+    func forceHidingKeyboard() {
         self.view.endEditing(true)
         self.scrollView.setContentOffset(.zero, animated: true)
     }
     
-    @objc private func hideKeyboard() {
+    @objc
+    private func hideKeyboard() {
         self.view.endEditing(true)
         self.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
@@ -211,43 +226,22 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
         self.present(alert, animated: true)
     }
     
-//    private func addBtnActions() {
-//
-//        loginButton.actionButton = {
-//
-//            guard let enteredEmail = self.email.text,
-//                  let enteredPassword = self.password.text,
-//                  (!enteredEmail.isEmpty && !enteredPassword.isEmpty)
-//            else {
-//                self.alertError(message: "Введите логин и пароль")
-//                return
-//            }
-//
-//            CheckerService().checkCredentials(email: self.email.text!, password: self.password.text!) { result in
-//                if result == "authorization completed" {
-//                    self.showProfileVC()
-//                } else if result == "There is no user record corresponding to this identifier. The user may have been deleted." {
-//                    self.alertBadLogin(message: result) { result in
-//                        CheckerService().signUp(email: enteredEmail, password: enteredPassword) { result in
-//                            if result == "registration completed" {
-//                                self.alertSuccess(message: result)
-//                            } else {
-//                                self.alertError(message: result)
-//                            }
-//                        }
-//                    }
-//                } else {
-//                    self.alertError(message: result)
-//                }
-//            }
-//        }
-//    }
-    
-    
     private func addBtnActions() {
+        loginButtonBiometric.actionButton = {
+            LocalAuthorizationService().authorizeIfPossible { [weak self] Bool, Error in
+                if Bool {
+                    self?.auth()
+                }
+            }
+        }
         
         loginButton.actionButton = {
-            
+            self.auth()
+        }
+    }
+    
+    func auth() {
+        DispatchQueue.main.async {
             guard let enteredEmail = self.email.text,
                   let enteredPassword = self.password.text,
                   (!enteredEmail.isEmpty && !enteredPassword.isEmpty)
@@ -256,17 +250,9 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
                 return
             }
             
-#if DEBUG
-            self.userLogin = TestUserService(user: User(login: "Olya Boyko", avatar: UIImage(named: "avatar") ?? UIImage(), status: "Waiting for smth"))
-#else
-            self.userLogin = CurrentUserService(user: User(login: self.userLoginName, avatar: UIImage(named: "hypno") ?? UIImage(), status: self.userStatus))
-#endif
-            
             CheckerService().checkCredentials(email: enteredEmail, password: enteredPassword) { result in
                 if result == "authorization completed" {
-                
-//                    let profileVC = ProfileViewController()
-//                    profileVC.userIsLogin = self.userLogin!.user
+                    
                     let tabBarContr = TabBarController()
                     
                     self.realmManager.saveRealmUser(login: enteredEmail, password: enteredPassword)
@@ -294,14 +280,6 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
         realmManager.reloadUserData()
         if !realmManager.realmUsers.isEmpty {
             
-        #if DEBUG
-            userLogin = TestUserService(user: User(login: "Olya Boyko", avatar: UIImage(named: "avatar") ?? UIImage(), status: "Waiting for smth"))
-        #else
-            userLogin = CurrentUserService(user: User(login: self.userLoginName, avatar: UIImage(named: "hypno") ?? UIImage(), status: self.userStatus))
-        #endif
-            
-//            let profileVC = ProfileViewController()
-//            profileVC.userIsLogin = userLogin!.user
             let tabBarContr = TabBarController()
             self.navigationController?.pushViewController(tabBarContr, animated: true)
         }
@@ -342,7 +320,13 @@ final class LogInViewController : UIViewController, UITextFieldDelegate {
              loginButton.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
              loginButton.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
              loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-             loginButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 16)
+             loginButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 16),
+             
+             loginButtonBiometric.heightAnchor.constraint(equalToConstant: 50),
+             loginButtonBiometric.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
+             loginButtonBiometric.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
+             loginButtonBiometric.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+             loginButtonBiometric.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 80),
             ])
     }
 }
@@ -357,12 +341,3 @@ extension LogInViewController: UITextViewDelegate {
         return true
     }
 }
-
-//extension LogInViewController {
-//    func showProfileVC() {
-//        let user = TestUserService()
-//
-//        let profileViewController = ProfileViewController(userService: user, name: email.text!)
-//        navigationController?.pushViewController(profileViewController, animated: true)
-//    }
-//}

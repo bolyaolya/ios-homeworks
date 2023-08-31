@@ -48,6 +48,7 @@
 		0C5BB7E32A7027D4006CFE45 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0C5BB7E22A7027D4006CFE45 /* RealmSwift */; };
 		0C5BFC672A2A3EA800E90112 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5BFC662A2A3EA800E90112 /* NetworkService.swift */; };
 		0C5BFC692A2A3EBC00E90112 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5BFC682A2A3EBC00E90112 /* AppConfiguration.swift */; };
+		0C80503D2A96470800CCD5E9 /* LocalAuthorizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C80503C2A96470800CCD5E9 /* LocalAuthorizationService.swift */; };
 		0C91EDB72A93C11A00A2C2CF /* LocalNotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C91EDB62A93C11A00A2C2CF /* LocalNotificationsService.swift */; };
 		0C969D2C2A41A4EC00715D11 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 0C969D2B2A41A4EC00715D11 /* FirebaseAuth */; };
 		0C969D302A41AF3A00715D11 /* CheckerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C969D2F2A41AF3A00715D11 /* CheckerService.swift */; };
@@ -131,11 +132,11 @@
 		0C38ECBC2A72C1190002D6F3 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		0C3DECCE2A0509E30043BF90 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		0C3DECD02A050F3E0043BF90 /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
-		0C4A13EE2A9614D80062BA54 /* Navigation.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Navigation.entitlements; sourceTree = "<group>"; };
 		0C4D821E2A0280EC0090D4E8 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
 		0C4D82202A0290520090D4E8 /* MyLoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLoginFactory.swift; sourceTree = "<group>"; };
 		0C5BFC662A2A3EA800E90112 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		0C5BFC682A2A3EBC00E90112 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
+		0C80503C2A96470800CCD5E9 /* LocalAuthorizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAuthorizationService.swift; sourceTree = "<group>"; };
 		0C91EDB62A93C11A00A2C2CF /* LocalNotificationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationsService.swift; sourceTree = "<group>"; };
 		0C969D2F2A41AF3A00715D11 /* CheckerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckerService.swift; sourceTree = "<group>"; };
 		0C9BF33B2A7136FF0053684A /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
@@ -235,7 +236,6 @@
 		01C137CC28A926DC003B5405 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
-				0C4A13EE2A9614D80062BA54 /* Navigation.entitlements */,
 				0C0792C12A83E95B00EE9D2E /* Model */,
 				0C0792C02A83E91500EE9D2E /* Controller */,
 				0C0792BF2A83E8D500EE9D2E /* ServiceLayer */,
@@ -278,6 +278,7 @@
 				0CF995EB2A1663E2007C244E /* BruteForce */,
 				0C38ECBB2A72C0D30002D6F3 /* CoreData */,
 				0C91EDB62A93C11A00A2C2CF /* LocalNotificationsService.swift */,
+				0C80503C2A96470800CCD5E9 /* LocalAuthorizationService.swift */,
 			);
 			path = ServiceLayer;
 			sourceTree = "<group>";
@@ -563,6 +564,7 @@
 				01C137CE28A926DC003B5405 /* AppDelegate.swift in Sources */,
 				0C38ECBA2A72B7E90002D6F3 /* FavoritesViewController.swift in Sources */,
 				0C9BF33E2A71370E0053684A /* RealmManager.swift in Sources */,
+				0C80503D2A96470800CCD5E9 /* LocalAuthorizationService.swift in Sources */,
 				010DF7312987ED1C008EEA6E /* PhotosTableViewCell.swift in Sources */,
 				014C731E28BE1A8400C284A2 /* ProfileHeaderView.swift in Sources */,
 				0C9BF33C2A7136FF0053684A /* RealmModel.swift in Sources */,
