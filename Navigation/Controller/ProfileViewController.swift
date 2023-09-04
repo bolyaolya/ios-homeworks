@@ -34,13 +34,18 @@ class ProfileViewController : UIViewController {
     
     private lazy var tableView : UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
-        tableView.backgroundColor = colorSecondaryBackground
+        tableView.backgroundColor = .white
         tableView.rowHeight = UITableView.automaticDimension
+        tableView.backgroundColor = .white
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: "ProfileCellID")
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: "PostCellID")
         tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: "PhotosCellID")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCellID")
+        tableView.dragInteractionEnabled = true
+        tableView.dragDelegate = self
+        tableView.dropDelegate = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -107,7 +112,7 @@ class ProfileViewController : UIViewController {
         #if DEBUG
         view.backgroundColor = .red
         #else
-        view.backgroundColor = colorMainBackground
+        view.backgroundColor = .white
         #endif
         view.addSubview(tableView)
         view.addSubview(blurView)
@@ -124,7 +129,7 @@ class ProfileViewController : UIViewController {
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -206,35 +211,54 @@ class ProfileViewController : UIViewController {
 
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+            return 2
+        }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        post.count + 1
+//        post.count + 1
+        
+        if section == 0 {
+            return 1
+        }
+        
+        if section == 1 {
+            return post.count
+        }
+        
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             
-        if indexPath.row == 0 {
+        if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PhotosCellID", for: indexPath) as! PhotosTableViewCell
 
             return cell
-        } else {
+        } else if indexPath.section == 1 {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PostCellID", for: indexPath) as! PostTableViewCell
-
-            let dataSource = post[indexPath.row - 1]
-            cell.setup(post: dataSource)
+         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCellID", for: indexPath) as! PostTableViewCell
+//
+//            let dataSource = post[indexPath.row - 1]
+//            cell.setup(post: dataSource)
+//            return cell
+        
+        let post = post[indexPath.row]
+        
+            let postViewModel = PostTableViewCell.ViewModel(id: indexPath.row,
+                                                            author: post.author,
+                                                            description: post.description,
+                                                            likes: "\(post.likes)",
+                                                            views: "\(post.views)",
+                                                            image: post.image)
+            cell.setup(with: postViewModel)
             return cell
         }
+        return tableView.dequeueReusableCell(withIdentifier: "defaultTableCellIdentifier", for: indexPath)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
-//            let header = profileHeader
-//            let user = userService.checkLogin(login: name)
-//            header.fullNameLabel.text = user?.fullName
-//            header.avatarImageView.image = user?.avatar
-//            header.statusLabel.text = user?.status
-//
-//            return header
             
             let profile = ProfileHeaderView()
             profile.setup(user: userIsLogin)
@@ -259,5 +283,66 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         else {
             tableView.deselectRow(at: indexPath, animated: true)
         }
+    }
+}
+
+extension ProfileViewController: UITableViewDragDelegate {
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        
+        guard indexPath.row > 0 else {
+            return []
+        }
+        
+        let image = post[indexPath.row].image
+        let description = post[indexPath.row].description
+        
+        let imageDragProvider = NSItemProvider(object: image ?? UIImage())
+        let descriptionDragProvider = NSItemProvider(object: description as NSString)
+        let dragItem1 = UIDragItem(itemProvider: imageDragProvider)
+        let dragItem2 = UIDragItem(itemProvider: descriptionDragProvider)
+        
+        return [dragItem1, dragItem2]
+    }
+}
+
+extension ProfileViewController: UITableViewDropDelegate {
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+        
+        let destinationIndexPath = IndexPath(row: post.count, section: 1)
+        
+        for item in coordinator.items {
+            item.dragItem.itemProvider.loadObject(ofClass: NSString.self) { string, error in
+                if let desc = string {
+                    newPost.description = desc as! String
+                    post.append(newPost)
+                    
+                    DispatchQueue.main.async {
+                        tableView.insertRows(at: [destinationIndexPath], with: .automatic)
+                    }
+                }
+            }
+            item.dragItem.itemProvider.loadObject(ofClass: UIImage.self) { image, error in
+                if let img = image {
+                    newPost.image = img as? UIImage
+                    post.append(newPost)
+                    
+                    DispatchQueue.main.async {
+                        tableView.insertRows(at: [destinationIndexPath], with: .automatic)
+                    }
+                }
+            }
+        }
+    }
+
+    
+    func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
+        let img = session.canLoadObjects(ofClass: UIImage.self)
+        let desc = session.canLoadObjects(ofClass: NSString.self)
+        
+        return img || desc
+    }
+    
+    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        return UITableViewDropProposal(operation: .copy, intent: .insertAtDestinationIndexPath)
     }
 }

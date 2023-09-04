@@ -13,7 +13,7 @@ final class CoreDataManager {
     
     static let defaultManager = CoreDataManager()
     
-    var posts : [Favorite] = []
+    var favPosts : [Favorite] = []
     
     lazy var persistentContainer : NSPersistentContainer = {
         
@@ -36,15 +36,27 @@ final class CoreDataManager {
         reloadPosts()
     }
     
+    func getPosts() -> [Favorite] {
+        let answer = Favorite.fetchRequest()
+        do {
+            let posts = try persistentContainer.viewContext.fetch(answer)
+            favPosts = posts
+            return favPosts
+        } catch {
+            print(error)
+        }
+        return []
+    }
+    
     func reloadPosts() {
         let request = Favorite.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "author", ascending: true)]
         do {
             let fetchedPost = try persistentContainer.viewContext.fetch(request)
-            posts = fetchedPost
+            favPosts = fetchedPost
         } catch let error {
             print("Ошибка \(error.localizedDescription)")
-            posts = []
+            favPosts = []
         }
     }
     
@@ -70,17 +82,17 @@ final class CoreDataManager {
         }
     }
     
-    func addPostToFav(author: String, descriptionText : String, image : String, likes : Int64, views : Int64, id : Int64) {
-        backgroundContext.perform { [self] in
-            let newFavPost = Favorite(context: backgroundContext)
+    func addPostToFav(author: String, descriptionText : String, image : String, likes : Int, views : Int, id : Int) {
+        backgroundContext.perform {
+            let newFavPost = Favorite(context: self.backgroundContext)
             newFavPost.author = author
             newFavPost.descriptionText = descriptionText
             newFavPost.image = image
-            newFavPost.likes = likes
-            newFavPost.views = views
+            newFavPost.likes = Int64(likes)
+            newFavPost.views = Int64(views)
             
-            saveBackgroundContext()
-            reloadPosts()
+            self.saveBackgroundContext()
+            self.reloadPosts()
         }
     }
     
@@ -88,7 +100,7 @@ final class CoreDataManager {
         persistentContainer.viewContext.delete(post)
         saveContext()
         reloadPosts()
-        posts.removeAll { $0 == post }
+        favPosts.removeAll { $0 == post }
     }
     
     func getSearchResult(by: String) {
@@ -98,7 +110,7 @@ final class CoreDataManager {
         
         do {
             let sortedPosts = try persistentContainer.viewContext.fetch(answer)
-            posts = sortedPosts
+            favPosts = sortedPosts
         } catch let error {
             print("Ошибка \(error.localizedDescription)")
         }

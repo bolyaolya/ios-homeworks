@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 final class FavoritesViewController : UIViewController {
+
     
     //MARK: - Properties
     
@@ -31,8 +32,8 @@ final class FavoritesViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "yourFav".localized
-        view.backgroundColor = colorMainBackground
+        title = "Your Favorites"
+        view.backgroundColor = .white
         
         let searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchByAuthor))
         let deleteButton = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(deleteFilter))
@@ -40,7 +41,7 @@ final class FavoritesViewController : UIViewController {
         
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor), 
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -53,9 +54,8 @@ final class FavoritesViewController : UIViewController {
         tableView.reloadData()
     }
     
-    @objc
-    private func searchByAuthor() {
-        searchField(title: "authorSearch".localized, actionHandler: { text in
+    @objc private func searchByAuthor() {
+        searchField(title: "По автору", actionHandler: { text in
             if let result = text {
                 CoreDataManager.defaultManager.getSearchResult(by: result)
                 self.tableView.reloadData()
@@ -76,7 +76,7 @@ extension FavoritesViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return CoreDataManager.defaultManager.posts.count
+        return CoreDataManager.defaultManager.favPosts.count
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -85,13 +85,13 @@ extension FavoritesViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as! PostTableViewCell
-        cell.setupFromCoreData(post : CoreDataManager.defaultManager.posts[indexPath.row])
+        cell.setupFromCoreData(post : CoreDataManager.defaultManager.favPosts[indexPath.row])
         return cell
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "deleteTitle".localized) { (action, swipeButtonView, completion) in
-            CoreDataManager.defaultManager.deletePostFromFav(post: CoreDataManager.defaultManager.posts[indexPath.row])
+        let deleteAction = UIContextualAction(style: .destructive, title: "Удалить") { (action, swipeButtonView, completion) in
+            CoreDataManager.defaultManager.deletePostFromFav(post: CoreDataManager.defaultManager.favPosts[indexPath.row])
             CoreDataManager().reloadPosts()
             self.tableView.reloadData()
             completion(true)
@@ -101,13 +101,12 @@ extension FavoritesViewController : UITableViewDelegate, UITableViewDataSource {
 }
 
 extension UIViewController {
-    
     func searchField(title : String? = nil,
                      subtitle : String? = nil,
                      inputText : String? = nil,
                      inputKeyboardType : UIKeyboardType = UIKeyboardType.default,
-                     actionTitle : String? = "searchTitle".localized,
-                     cancelTitle : String? = "cancelTitle".localized,
+                     actionTitle : String? = "Поиск",
+                     cancelTitle : String? = "Отмена",
                      cancelHandler: ((UIAlertAction) -> Swift.Void)? = nil,
                      actionHandler: ((_ text: String?) -> Void)? = nil) {
         
@@ -127,3 +126,18 @@ extension UIViewController {
         self.present(alert, animated: true)
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
