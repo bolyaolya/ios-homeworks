@@ -19,7 +19,7 @@ final class LocalNotificationsService {
         
         center.requestAuthorization(options: [.sound, .badge, .alert]) { success, error in
             if success {
-                print("Уведомления включены")
+//                print("Уведомления включены")
                 let content = UNMutableNotificationContent()
                 content.title = "Посмотрите последние обновления"
                 content.sound = .defaultCritical

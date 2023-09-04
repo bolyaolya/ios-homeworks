@@ -14,7 +14,7 @@ struct NetworkService {
         if let url = URL(string: configuration.rawValue) {
             let dataTask = urlSession.dataTask(with: url) { data, response, error in
                 if let getData = data {
-                    print(String(data: getData, encoding: .utf8))
+                    print(String(data: getData, encoding: .utf8)!)
                 }
                 if let httpResponse = response as? HTTPURLResponse {
                     print("We got a response!")
